@@ -8,6 +8,9 @@ import lombok.Data;
 @Entity
 public class Portfolio extends PanacheEntity {
 
-    public Portfolio(String name) {
-    }
+    private String name;
+
+    public Portfolio() { };
+
+    public Portfolio(String name) { };
 }
