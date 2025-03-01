@@ -1,6 +1,46 @@
-insert into portfolio(id, name) values (1, 'Doro');
-insert into portfolio(id, name) values (2, 'Bobby');
-insert into portfolio(id, name) values (3, 'Curt');
-insert into portfolio(id, name) values (4, 'Nina');
-insert into portfolio(id, name) values (5, 'Jimmi');
-insert into portfolio(id, name) values (6, 'Janis');
+insert into portfolio(id, name) values (1, 'my-portfolio');
+
+INSERT INTO ticker (id, symbol, company_name) VALUES
+(1, 'AAPL', 'Apple Inc.'),
+(2, 'GOOGL', 'Alphabet Inc.'),
+(3, 'AMZN', 'Amazon.com Inc.'),
+(4, 'MSFT', 'Microsoft Corporation'),
+(5, 'TSLA', 'Tesla Inc.'),
+(6, 'META', 'Meta Platforms Inc.'),
+(7, 'NFLX', 'Netflix Inc.'),
+(8, 'NVDA', 'NVIDIA Corporation'),
+(9, 'SPY', 'SPDR S&P 500 ETF Trust'),
+(10, 'BRK.B', 'Berkshire Hathaway Inc.');
+
+INSERT INTO price_entry (id, ticker_id, price, date) VALUES
+(1, 1, 145.23, '2025-02-01'),
+(2, 1, 146.50, '2025-02-02'),
+(3, 1, 147.12, '2025-02-03'),
+(4, 2, 2752.40, '2025-02-01'),
+(5, 2, 2755.15, '2025-02-02'),
+(6, 2, 2760.20, '2025-02-03'),
+(7, 3, 3450.01, '2025-02-01'),
+(8, 3, 3445.88, '2025-02-02'),
+(9, 3, 3460.00, '2025-02-03'),
+(10, 4, 310.50, '2025-02-01'),
+(11, 4, 315.75, '2025-02-02'),
+(12, 4, 317.20, '2025-02-03'),
+(13, 5, 711.12, '2025-02-01'),
+(14, 5, 715.33, '2025-02-02'),
+(15, 5, 717.98, '2025-02-03'),
+(16, 6, 158.78, '2025-02-01'),
+(17, 6, 159.02, '2025-02-02'),
+(18, 6, 159.45, '2025-02-03'),
+(19, 7, 598.55, '2025-02-01'),
+(20, 7, 603.20, '2025-02-02'),
+(21, 7, 606.30, '2025-02-03'),
+(22, 8, 194.10, '2025-02-01'),
+(23, 8, 195.75, '2025-02-02'),
+(24, 8, 196.60, '2025-02-03'),
+(25, 9, 401.23, '2025-02-01'),
+(26, 9, 402.12, '2025-02-02'),
+(27, 9, 403.40, '2025-02-03'),
+(28, 10, 326.80, '2025-02-01'),
+(29, 10, 329.55, '2025-02-02'),
+(30, 10, 331.20, '2025-02-03');
+
