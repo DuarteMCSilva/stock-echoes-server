@@ -1,6 +1,7 @@
 package com.stockechoes.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -9,15 +10,16 @@ import java.time.LocalDate;
 @Data
 public class PriceEntryDto {
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
     private LocalDate date;
-    private Float price;
+    private Float closePrice;
 
     public PriceEntryDto (LocalDate s) { }
 
     @JsonCreator
     public PriceEntryDto (@JsonProperty("date") LocalDate date,
-                          @JsonProperty("price") Float price) {
+                          @JsonProperty("close") Float closePrice) {
         this.date = date;
-        this.price = price;
+        this.closePrice = closePrice;
     }
 }
