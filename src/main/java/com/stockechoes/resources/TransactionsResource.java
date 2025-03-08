@@ -2,7 +2,7 @@ package com.stockechoes.resources;
 
 import com.stockechoes.domain.dao.TransactionsDao;
 import com.stockechoes.domain.dto.TransactionsDto;
-import com.stockechoes.domain.model.Transaction;
+import com.stockechoes.domain.model.TransactionEntry;
 import com.stockechoes.services.TransactionsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -33,7 +33,7 @@ public class TransactionsResource {
 
     @GET
     @Path("all") // No business case, only debugging.
-    public List<Transaction> getAllTransactions() {
+    public List<TransactionEntry> getAllTransactions() {
         return transactionsDao.getTransactions();
     }
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name="ticker_table")
 @Table(name="ticker_table")
 public class Ticker extends PanacheEntity {
 
