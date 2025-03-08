@@ -17,7 +17,7 @@ public class TransactionsDao {
 
     public List<TransactionsDto> getPortfolioTransactions(String portfolioId) {
         String statement = "SELECT t.date, t.quantity, t.cost, t.ticker.symbol " +
-                " FROM Transaction t " +
+                " FROM transaction_table t " +
                 " WHERE portfolio.id = ?1 " +
                 " ORDER BY t.date ASC";
 
@@ -35,7 +35,7 @@ public class TransactionsDao {
 
     public List<TransactionsDto> getPortfolioTransactions(String portfolioId, String ticker) {
         String statement = "SELECT t.date, t.quantity, t.cost " +
-                " FROM Transaction t " +
+                " FROM transaction_table t " +
                 " WHERE portfolio.id = ?1 AND ticker.symbol = ?2 " +
                 " ORDER BY t.date ASC";
 
