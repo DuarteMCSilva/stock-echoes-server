@@ -36,7 +36,6 @@ public class WebScrapperService {
         try {
             response = target.request(MediaType.APPLICATION_JSON).get();
         } catch (Exception e) {
-            String a = " ";
             client.close();
             throw new RuntimeException("No response from Web-scrapping service." );
         }

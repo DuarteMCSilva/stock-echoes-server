@@ -1,5 +1,7 @@
 package com.stockechoes.services;
 
+import com.stockechoes.api.IsinMapperService;
+import com.stockechoes.api.dto.IsinMapDto;
 import com.stockechoes.client.form.FileUploadBody;
 import com.stockechoes.domain.dao.TransactionsDao;
 import com.stockechoes.domain.dto.TransactionsDto;
@@ -18,6 +20,9 @@ public class TransactionsService {
 
     @Inject
     CsvReaderService csvReaderService;
+
+    @Inject
+    IsinMapperService isinMapperService;
 
     public List<TransactionsDto> getPortfolioTransactions(
             String portfolioId, String ticker
@@ -40,6 +45,7 @@ public class TransactionsService {
         if( body.columnMetaData != null) {
             List<String> metadataList = body.getColumnNameList();
             List<List<String>> table = csvReaderService.getTableFromCsv(body.file, metadataList);
+            IsinMapDto isinMap = isinMapperService.fetchIsinMap();
 
             return Response.ok("Lines saved: " + table.size()).build();
         }
