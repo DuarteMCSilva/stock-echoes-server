@@ -53,15 +53,22 @@ You can then execute your native executable with: `./target/stock-echoes-server-
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
 
-## Provided Dependencies
+## Extensions
 
-| Dependency                  | Purpose                                                                                   | Use Case                                                                                |
-|-----------------------------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| **`hibernate-orm-panache`** | ORM framework to map Java objects to database tables and simplify DB access.              | Used for interacting with relational databases using Java objects (CRUD operations).    |
+To add an extension, you can write the command:
+
+```shell script
+./mvnw quarkus:add-extension -Dextensions='(extension name)'
+```
+
+| Dependency                  | Purpose                                                                                    | Use Case                                                                                |
+|-----------------------------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| **`hibernate-orm-panache`** | ORM framework to map Java objects to database tables and simplify DB access.               | Used for interacting with relational databases using Java objects (CRUD operations).    |
 | **`jdbc-postgresql`**       | JDBC driver for PostgreSQL, allowing Java applications to connect to PostgreSQL databases. | Used to directly connect Java applications to PostgreSQL databases via JDBC.            |
-| **`resteasy`**              | JAX-RS implementation to build RESTful web services in Java.                              | Used for creating REST APIs and handling HTTP requests and responses.                   |
-| **`resteasy-jackson`**      | Integrates Jackson for JSON serialization/deserialization in RESTful services.            | Automatically converts Java objects to JSON and vice versa in RESTful APIs.             |
-| **`lombok`**                | Reduces the necessity of writing boilerplate code.                                        | Automatically creates getters, setters and other methods when @Data is used on Entities |
+| **`resteasy`**              | JAX-RS implementation to build RESTful web services in Java.                               | Used for creating REST APIs and handling HTTP requests and responses.                   |
+| **`resteasy-jackson`**      | Integrates Jackson for JSON serialization/deserialization in RESTful services.             | Automatically converts Java objects to JSON and vice versa in RESTful APIs.             |
+| **`lombok`**                | Reduces the necessity of writing boilerplate code.                                         | Automatically creates getters, setters and other methods when @Data is used on Entities |
+| **`quarkus-resteasy-multipart`** | Enables receiving complex form-data in the body of requests                                |  |
 
 ### REST
 

@@ -52,8 +52,7 @@ public class TransactionsDao {
     }
 
     public List<HoldingDto> getHoldings(String portfolioId) {
-        String statement = "" +
-                "SELECT tick.symbol, tick.company_name as name, " +
+        String statement = "SELECT tick.symbol, tick.company_name as name, " +
                 " SUM(quantity) as quantity, SUM(cost * quantity)/SUM(quantity) as avgCost" +
                 " FROM transaction_table tr" +
                 " JOIN ticker_table tick on tick.id = tr.ticker.id" +
@@ -68,7 +67,6 @@ public class TransactionsDao {
                     int quantity = ( (Long) tr.get(2) ).intValue();
                     double avgCost = (double) tr.get(3);
                     return new HoldingDto(symbol, name, quantity, avgCost);
-                }
-        ).toList();
+                }).toList();
     }
 }
