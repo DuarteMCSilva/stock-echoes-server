@@ -42,11 +42,9 @@ public class CsvReaderService {
 
     private List<Integer> getMetadataIndexes(String[] headers, List<String> metadata) {
         List<Integer> indexList = new ArrayList<>();
-        Map<String, Integer> columnIndexMap = new HashMap<>();
         for( int i = 0; i < headers.length; i++) {
             if( metadata.contains( headers[i].trim())) {
                 indexList.add(i);
-                columnIndexMap.put(headers[i], i);
             }
         }
         return indexList;

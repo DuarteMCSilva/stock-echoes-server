@@ -12,5 +12,7 @@ public class Portfolio extends PanacheEntity {
 
     public Portfolio() { };
 
-    public Portfolio(String name) { };
+    public Portfolio(String name) {
+        this.name = name;
+    };
 }

@@ -47,7 +47,8 @@ public class TransactionsResource {
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response saveTransactionHistory(
-            @MultipartForm FileUploadBody body) {
+            @MultipartForm FileUploadBody body,
+            @QueryParam("portfolio") String portfolioId) {
 
         String fileName = body.fileName;
         InputStream file = body.file;
@@ -62,6 +63,6 @@ public class TransactionsResource {
                     .entity("No file was provided").build();
         }
 
-        return transactionsService.postTransactionHistory(body);
+        return transactionsService.postTransactionHistory(body, portfolioId);
     }
 }

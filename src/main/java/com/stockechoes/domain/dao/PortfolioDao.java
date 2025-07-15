@@ -5,15 +5,18 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-import java.util.List;
-
 @ApplicationScoped
 public class PortfolioDao {
 
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<Portfolio> getAllPortfolios() {
-        return entityManager.createQuery("FROM Portfolio", Portfolio.class).getResultList();
+    public void createPortfolio(String name) {
+        Portfolio portfolio = new Portfolio(name);
+        Portfolio.persist(portfolio);
+    }
+
+    public Portfolio getPortfolioById(String id){
+        return Portfolio.findById(id);
     }
 }
