@@ -1,4 +1,4 @@
-package core.auth;
+package com.stockechoes.auth;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.security.jpa.Roles;
