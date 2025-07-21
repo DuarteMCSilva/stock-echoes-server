@@ -54,3 +54,7 @@ INSERT INTO transaction_table (id, cost, date, quantity, portfolio_id, ticker_id
 (6, 175.99, '2024-02-23',  11, 1, 1),
 (7, 130.45, '2024-02-24',  -9, 1, 2);
 
+INSERT INTO se_users (id, username, password, role) VALUES
+(1, 'admin', '$2a$12$6pgXp3jaRMKQlliA8pDdXOWvOaW5b86ct.icjD4TygnUO3rSCgqBu', 'user,admin'),
+(2, 'user', '$2a$12$TdkZPIy5xkCSM/PNwzb8wu95VapYIwoQ6QpOr9c5GU4/vgsKyeX2.', 'user');
+
