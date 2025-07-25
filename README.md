@@ -4,21 +4,26 @@ classDiagram
     class User {
         - id: Long
         - name: String
-        - portfolios: Portfolio
+        - email: String
+        - birth_date: String
     }
 
     class Portfolio {
         - id: Long
+        - user_id: Long
         - name: String
-        - created?: Date
+        - created: Date
     }
 
     class Ticker {
+        - id: Long
         - symbol: String
         - company_name: String
     }
 
     class Holding {
+        - id: String
+        - portfolio_id: Long
         - symbol: String
         - name: String
         - quantity: int
@@ -27,6 +32,7 @@ classDiagram
 
     class Transaction {
         - id: Long
+        - portfolio_id: Long
         - date: Date
         - quantity: int
         - price: BigDecimal
@@ -37,7 +43,7 @@ classDiagram
     User "1" --> "*" Portfolio
     Portfolio "1" --> "*" Holding : contains
     Portfolio "1" --> "*" Transaction
-    Ticker "1" --> "*" Transaction
+    Transaction "*" -->"1" Ticker
 ````
 
 ## Extensions
