@@ -1,6 +1,12 @@
 # stock-echoes-server
 ````mermaid
 classDiagram
+    class User {
+        - id: Long
+        - name: String
+        - portfolios: Portfolio
+    }
+
     class Portfolio {
         - id: Long
         - name: String
@@ -12,7 +18,7 @@ classDiagram
         - company_name: String
     }
 
-    class Holdings {
+    class Holding {
         - symbol: String
         - name: String
         - quantity: int
@@ -28,9 +34,10 @@ classDiagram
 
     %% Relationships
 
-    Portfolio "1" --> "*" Holdings : contains
-    Transaction "1" --> "1" Portfolio
-    Transaction "1" --> "1" Ticker
+    User "1" --> "*" Portfolio
+    Portfolio "1" --> "*" Holding : contains
+    Portfolio "1" --> "*" Transaction
+    Ticker "1" --> "*" Transaction
 ````
 
 ## Extensions
