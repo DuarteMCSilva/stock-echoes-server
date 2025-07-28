@@ -1,4 +1,4 @@
-package com.stockechoes.resources;
+package com.stockechoes.resources.http;
 
 import com.stockechoes.domain.dao.PortfolioRepository;
 import com.stockechoes.domain.model.Portfolio;

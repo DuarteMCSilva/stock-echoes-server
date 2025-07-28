@@ -1,4 +1,4 @@
-package com.stockechoes.graphql;
+package com.stockechoes.resources.graphql;
 
 import com.stockechoes.domain.dao.PortfolioRepository;
 import com.stockechoes.domain.dao.TransactionsDao;
