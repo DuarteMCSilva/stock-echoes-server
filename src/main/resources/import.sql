@@ -1,4 +1,4 @@
-insert into portfolio(id, name) values (10001, 'my-portfolio');
+insert into portfolios_table (id, name) values (10001, 'my-portfolio');
 
 INSERT INTO ticker_table (id, symbol, company_name) VALUES
 (10001, 'AAPL', 'Apple Inc.'),
@@ -10,7 +10,7 @@ INSERT INTO ticker_table (id, symbol, company_name) VALUES
 (10007, 'NFLX', 'Netflix Inc.'),
 (10008, 'NVDA', 'NVIDIA Corporation'),
 (10009, 'SPY', 'SPDR S&P 500 ETF Trust'),
-(100010, 'BRK.B', 'Berkshire Hathaway Inc.');
+(10010, 'BRK.B', 'Berkshire Hathaway Inc.');
 
 INSERT INTO price_entry (id, ticker_id, price, date) VALUES
 (10001, 10001, 145.23, '2025-02-01'),

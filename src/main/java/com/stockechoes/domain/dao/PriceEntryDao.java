@@ -3,17 +3,12 @@ package com.stockechoes.domain.dao;
 import com.stockechoes.domain.dto.PriceEntryDto;
 import com.stockechoes.domain.model.PriceEntry;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
 
 import java.time.LocalDate;
 import java.util.*;
 
 @ApplicationScoped
 public class PriceEntryDao {
-
-    @Inject
-    EntityManager entityManager;
 
     public List<PriceEntryDto> getPricesByTicker(String symbol) {
         String statement =

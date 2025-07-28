@@ -41,7 +41,7 @@ classDiagram
     %% Relationships
 
     User "1" --> "*" Portfolio
-    Portfolio "1" --> "*" Holding : contains
+    Portfolio "1" --> "*" Holding
     Portfolio "1" --> "*" Transaction
     Transaction "*" -->"1" Ticker
 ````

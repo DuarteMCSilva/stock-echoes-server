@@ -11,6 +11,8 @@ import java.util.List;
 @ApplicationScoped
 public class TransactionsDao {
 
+    // see CriteriaQuery to build queries
+
     public List<TransactionEntry> getTransactions() {
         return TransactionEntry.listAll();
     }
