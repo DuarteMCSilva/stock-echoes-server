@@ -1,12 +1,12 @@
 package com.stockechoes.resources.kafka;
 
-import io.smallrye.mutiny.Uni;
 import io.smallrye.reactive.messaging.annotations.Broadcast;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Message;
 
 @Path("/message")
 public class MessagingResource {
@@ -23,8 +23,10 @@ public class MessagingResource {
     @POST
     @Consumes("text/plain")
     public String postMessage(final String text) {
-        final String message =  text + " World!";
+        final String payload =  text + " World!";
+        final var message = Message.of(payload).addMetadata(System.currentTimeMillis());
+
         this.emitter.send(message);
-        return message;
+        return "message sent!";
     }
 }
