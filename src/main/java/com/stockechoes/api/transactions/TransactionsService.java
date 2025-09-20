@@ -1,13 +1,14 @@
 package com.stockechoes.api.transactions;
 
 import com.stockechoes.services.business.isin.IsinMapperService;
-import com.stockechoes.services.business.isin.IsinMapDto;
-import com.stockechoes.client.form.FileUploadBody;
-import com.stockechoes.services.utility.CsvReaderService;
+import com.stockechoes.services.utility.csv.CsvReaderService;
+import com.stockechoes.services.utility.csv.TransactionImportEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @ApplicationScoped
@@ -20,7 +21,7 @@ public class TransactionsService {
     CsvReaderService csvReaderService;
 
     @Inject
-    IsinMapperService isinMapperService;
+    IsinMapperService isinMapperService; // TODO
 
     public List<TransactionsDto> getPortfolioTransactions(
             String portfolioId, String ticker
@@ -37,15 +38,12 @@ public class TransactionsService {
     }
 
     public Response postTransactionHistory(
-            FileUploadBody body) {
+            InputStream csvFile) throws IOException {
         String firstLine = "No data";
 
-        if( body.columnMetaData != null) {
-            List<String> metadataList = body.getColumnNameList();
-            List<List<String>> table = csvReaderService.getTableFromCsv(body.file, metadataList);
-            IsinMapDto isinMap = isinMapperService.fetchIsinMap();
-
-            return Response.ok("Lines saved: " + table.size()).build();
+        if(csvFile != null) {
+            List<TransactionImportEntity> importedTransactions = csvReaderService.getListFromCsv(csvFile);
+            return Response.ok("Lines saved: " + importedTransactions.size()).build();
         }
 
         return Response.ok(firstLine).build();
