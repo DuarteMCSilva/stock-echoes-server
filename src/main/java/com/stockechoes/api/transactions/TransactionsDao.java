@@ -2,6 +2,7 @@ package com.stockechoes.api.transactions;
 
 import com.stockechoes.api.holdings.HoldingDto;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,8 +13,12 @@ public class TransactionsDao {
 
     // see CriteriaQuery to build queries
 
+    @Inject
+    @SuppressWarnings("unused")
+    private TransactionsRepository transactionsRepository;
+
     public List<Transaction> getTransactions() {
-        return Transaction.listAll();
+        return transactionsRepository.listAll();
     }
 
     public List<TransactionsDto> getPortfolioTransactions(Long portfolioId) {
@@ -22,7 +27,7 @@ public class TransactionsDao {
                 " WHERE portfolio.id = ?1 " +
                 " ORDER BY t.date ASC";
 
-        return Transaction.find(statement, portfolioId )
+        return transactionsRepository.find(statement, portfolioId )
                 .project(List.class).stream()
                 .map( row -> {
                     LocalDate date = (LocalDate) row.get(0);
@@ -40,7 +45,7 @@ public class TransactionsDao {
                 " WHERE portfolio.id = ?1 AND ticker.symbol = ?2 " +
                 " ORDER BY t.date ASC";
 
-        return Transaction.find(statement, portfolioId, ticker )
+        return transactionsRepository.find(statement, portfolioId, ticker )
                 .project(List.class).stream()
                 .map( row -> {
                     LocalDate date = (LocalDate) row.get(0);
@@ -60,7 +65,7 @@ public class TransactionsDao {
                 " WHERE tr.portfolio.id = ?1 " +
                 " GROUP BY tick.id";
 
-        return Transaction.find(statement, portfolioId)
+        return transactionsRepository.find(statement, portfolioId)
                 .project(List.class).stream()
                 .map( (tr) -> {
                     String symbol = (String) tr.get(0);

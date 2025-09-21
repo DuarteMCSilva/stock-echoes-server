@@ -12,25 +12,28 @@ import java.util.List;
 @Path("/portfolio")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PortfolioResource {
+@SuppressWarnings("unused")
+public class PortfolioController {
 
     @Inject
     PortfolioRepository portfolioRepository;
 
     @GET
     public List<Portfolio> getAll() {
-        return Portfolio.listAll();
+        return portfolioRepository.listAll();
     }
 
     @GET
     @Path("{id}")
     public Portfolio getPortfolioById(@PathParam("id") Long id) {
-        return Portfolio.findById(id);
+        return portfolioRepository.findById(id);
     }
 
     @POST
     @Transactional
-    public Portfolio postPortfolio(Portfolio portfolio) {
-        return portfolioRepository.createPortfolio(portfolio);
+    @Path("/create")
+    public Long postPortfolio(@QueryParam("name") String name) {
+        //TODO: make with body, and more params.
+        return portfolioRepository.createPortfolio(name);
     }
 }

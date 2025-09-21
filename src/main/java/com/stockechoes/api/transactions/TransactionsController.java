@@ -9,14 +9,14 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 @ApplicationScoped
 @Path("/transactions")
 @Produces(MediaType.APPLICATION_JSON)
-public class TransactionsResource {
+@SuppressWarnings("unused")
+public class TransactionsController {
 
     @Inject
     TransactionsService transactionsService;
@@ -47,7 +47,7 @@ public class TransactionsResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
     public Response saveTransactionHistory(
-            @MultipartForm FileUploadBody body) throws IOException {
+            @MultipartForm FileUploadBody body) {
 
         String fileName = body.fileName;
         InputStream file = body.file;
@@ -63,7 +63,6 @@ public class TransactionsResource {
                     .entity("No file was provided").build();
         }
 
-        InputStream csvFile = body.file;
-        return transactionsService.postTransactionHistory(csvFile, portfolioId);
+        return transactionsService.postTransactionHistory(file, portfolioId);
     }
 }

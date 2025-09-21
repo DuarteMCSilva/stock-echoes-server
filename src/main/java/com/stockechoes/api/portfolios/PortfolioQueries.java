@@ -11,6 +11,7 @@ import org.eclipse.microprofile.graphql.*;
 import java.util.List;
 
 @GraphQLApi()
+@SuppressWarnings("unused")
 public class PortfolioQueries {
 
     // https://piotrminkowski.com/2021/04/14/advanced-graphql-with-quarkus/
@@ -25,13 +26,13 @@ public class PortfolioQueries {
     PortfolioRepository portfolioRepository;
 
     @Query("portfolio")
-    public Portfolio getPortfolio(@Name("id") String id) {
-        return portfolioRepository.getPortfolioById(id);
+    public Portfolio getPortfolio(@Name("id") Long id) {
+        return portfolioRepository.findById(id);
     }
 
     @Query("transactions")
     public List<TransactionsDto> getTransactions(@Source Portfolio portfolio) {
-        return transactionsDao.getPortfolioTransactions(String.valueOf(portfolio.id));
+        return transactionsDao.getPortfolioTransactions(portfolio.id);
     }
 
     @Query("holdings")
@@ -41,7 +42,7 @@ public class PortfolioQueries {
 
     @Mutation
     @Transactional
-    public Portfolio createPortfolio(Portfolio portfolio){
-        return portfolioRepository.createPortfolio(portfolio);
+    public Long createPortfolio(Portfolio portfolio){
+        return portfolioRepository.createPortfolio(portfolio.getName());
     }
 }

@@ -6,12 +6,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class PortfolioRepository implements PanacheRepository<Portfolio> {
 
-    public Portfolio getPortfolioById(String id) {
-        return Portfolio.findById(id);
-    }
-
-    public Portfolio createPortfolio(Portfolio portfolio) {
-        Portfolio.persist(portfolio);
-        return portfolio;
+    public Long createPortfolio(String name) {
+        Portfolio portfolio = new Portfolio(name);
+        persist(portfolio);
+        return portfolio.id;
     }
 }

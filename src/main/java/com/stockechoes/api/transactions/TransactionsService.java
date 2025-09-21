@@ -18,6 +18,9 @@ public class TransactionsService {
     TransactionsDao transactionsDao;
 
     @Inject
+    TransactionsRepository transactionsRepository;
+
+    @Inject
     PortfolioService portfolioService;
 
     @Inject
@@ -41,9 +44,6 @@ public class TransactionsService {
     }
 
     public Response postTransactionHistory(InputStream csvFile, Long portfolioId) {
-        if (csvFile == null) {
-            return Response.notModified().build();
-        }
 
         Portfolio portfolio = portfolioService.ensurePortfolioPresence(portfolioId);
 
@@ -53,7 +53,7 @@ public class TransactionsService {
 
         List<Transaction> importedTransactions = csvReaderService.getTransactionsFromCsv(csvFile, portfolioId);
 
-        Transaction.persist(importedTransactions);
+        transactionsRepository.persist(importedTransactions);
 
         // TODO: Avoid duplicate values, on duplicate requests.
         return Response.ok("Lines saved: " + importedTransactions.size()).build();
