@@ -3,6 +3,7 @@ package com.stockechoes.api.transactions;
 import com.stockechoes.api.holdings.HoldingDto;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class TransactionsDao {
         return Transaction.listAll();
     }
 
-    public List<TransactionsDto> getPortfolioTransactions(String portfolioId) {
-        String statement = "SELECT t.date, t.quantity, t.cost, t.ticker.symbol " +
+    public List<TransactionsDto> getPortfolioTransactions(Long portfolioId) {
+        String statement = "SELECT t.date, t.quantity, t.cost, t.isin " +
                 " FROM transaction_table t " +
                 " WHERE portfolio.id = ?1 " +
                 " ORDER BY t.date ASC";
@@ -26,14 +27,14 @@ public class TransactionsDao {
                 .map( row -> {
                     LocalDate date = (LocalDate) row.get(0);
                     int quantity = (int) row.get(1);
-                    float cost = (float) row.get(2);
+                    BigDecimal cost = (BigDecimal) row.get(2);
                     String ticker = (String) row.get(3);
 
                     return new TransactionsDto(date, ticker, quantity, cost);
                 }).toList();
     }
 
-    public List<TransactionsDto> getPortfolioTransactions(String portfolioId, String ticker) {
+    public List<TransactionsDto> getPortfolioTransactions(Long portfolioId, String ticker) {
         String statement = "SELECT t.date, t.quantity, t.cost " +
                 " FROM transaction_table t " +
                 " WHERE portfolio.id = ?1 AND ticker.symbol = ?2 " +
@@ -44,7 +45,7 @@ public class TransactionsDao {
                 .map( row -> {
                     LocalDate date = (LocalDate) row.get(0);
                     int quantity = (int) row.get(1);
-                    float cost = (float) row.get(2);
+                    BigDecimal cost = (BigDecimal) row.get(2);
 
                     return new TransactionsDto(date, ticker, quantity, cost);
 

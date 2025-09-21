@@ -3,6 +3,7 @@ package com.stockechoes.api.transactions;
 import com.stockechoes.client.form.FileUploadBody;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -29,7 +30,8 @@ public class TransactionsResource {
             @QueryParam("portfolio") String portfolioId,
             @QueryParam("ticker") String ticker
     ) {
-        return transactionsService.getPortfolioTransactions(portfolioId, ticker);
+        Long id = Long.valueOf(portfolioId); // TODO: validation
+        return transactionsService.getPortfolioTransactions(id, ticker);
     }
 
     @GET
@@ -43,11 +45,13 @@ public class TransactionsResource {
     @POST
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Transactional
     public Response saveTransactionHistory(
             @MultipartForm FileUploadBody body) throws IOException {
 
         String fileName = body.fileName;
         InputStream file = body.file;
+        Long portfolioId = body.portfolioId;
 
         if(fileName == null || fileName.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -60,6 +64,6 @@ public class TransactionsResource {
         }
 
         InputStream csvFile = body.file;
-        return transactionsService.postTransactionHistory(csvFile);
+        return transactionsService.postTransactionHistory(csvFile, portfolioId);
     }
 }

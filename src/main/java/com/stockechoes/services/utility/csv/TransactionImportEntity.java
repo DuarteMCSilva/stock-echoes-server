@@ -31,6 +31,4 @@ public class TransactionImportEntity {
     @CsvCustomBindByName(column = "Total", converter = DecimalConverter.class)
     private BigDecimal totalPrice;
 
-    public TransactionImportEntity(Transaction transaction) {
-    }
 }

@@ -1,13 +1,13 @@
 package com.stockechoes.api.transactions;
 
+import com.stockechoes.api.portfolios.Portfolio;
+import com.stockechoes.api.portfolios.PortfolioService;
 import com.stockechoes.services.business.isin.IsinMapperService;
 import com.stockechoes.services.utility.csv.CsvReaderService;
-import com.stockechoes.services.utility.csv.TransactionImportEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -18,15 +18,18 @@ public class TransactionsService {
     TransactionsDao transactionsDao;
 
     @Inject
+    PortfolioService portfolioService;
+
+    @Inject
     CsvReaderService csvReaderService;
 
     @Inject
     IsinMapperService isinMapperService; // TODO
 
     public List<TransactionsDto> getPortfolioTransactions(
-            String portfolioId, String ticker
+            Long portfolioId, String ticker
     ) {
-        if(portfolioId == null || portfolioId.isEmpty()) {
+        if(portfolioId == null) {
             throw new RuntimeException("No portfolio id was given");
         }
 
@@ -37,15 +40,23 @@ public class TransactionsService {
         return transactionsDao.getPortfolioTransactions(portfolioId,ticker);
     }
 
-    public Response postTransactionHistory(
-            InputStream csvFile) throws IOException {
-        String firstLine = "No data";
-
-        if(csvFile != null) {
-            List<TransactionImportEntity> importedTransactions = csvReaderService.getListFromCsv(csvFile);
-            return Response.ok("Lines saved: " + importedTransactions.size()).build();
+    public Response postTransactionHistory(InputStream csvFile, Long portfolioId) {
+        if (csvFile == null) {
+            return Response.notModified().build();
         }
 
-        return Response.ok(firstLine).build();
+        Portfolio portfolio = portfolioService.ensurePortfolioPresence(portfolioId);
+
+        if(portfolio == null) {
+            return Response.notModified("Error creating portfolio").build();
+        }
+
+        List<Transaction> importedTransactions = csvReaderService.getTransactionsFromCsv(csvFile, portfolioId);
+
+        Transaction.persist(importedTransactions);
+
+        // TODO: Avoid duplicate values, on duplicate requests.
+        return Response.ok("Lines saved: " + importedTransactions.size()).build();
+
     }
 }

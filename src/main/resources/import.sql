@@ -45,7 +45,7 @@ INSERT INTO price_entry (id, ticker_id, price, date) VALUES
 (10030, 10010, 331.20, '2025-02-03');
 
 
-INSERT INTO transaction_table (id, cost, date, quantity, portfolio_id, ticker_id) VALUES
+INSERT INTO transaction_table (id, cost, date, quantity, portfolio_id, isin) VALUES
 (10001, 150.75, '2024-02-15',  10, 10001, 10001),
 (10002, 200.50, '2024-02-16',  15, 10001, 10002),
 (10003, 180.20, '2024-02-20', -12, 10001, 10002),

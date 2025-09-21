@@ -15,4 +15,8 @@ public class FileUploadBody {
     @FormParam("fileName")
     @PartType(MediaType.TEXT_PLAIN)
     public String fileName;
+
+    @FormParam("portfolioId")
+    @PartType(MediaType.TEXT_PLAIN)
+    public Long portfolioId;
 }

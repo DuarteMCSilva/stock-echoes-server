@@ -1,8 +1,7 @@
 package com.stockechoes.api.portfolios;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -14,5 +13,7 @@ public class Portfolio extends PanacheEntity {
 
     public Portfolio() { }
 
-    public Portfolio(String name) { }
+    public Portfolio(String name) {
+        this.name = name;
+    }
 }
