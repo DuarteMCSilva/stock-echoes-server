@@ -1,6 +1,5 @@
 package com.stockechoes.api.holdings;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -12,7 +11,7 @@ import java.util.SequencedCollection;
 @Path("/holdings")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@RolesAllowed({"user"})
+//@RolesAllowed({"user"}) // TODO: Reactivate when relevant
 public class HoldingsResource {
     
     @Inject

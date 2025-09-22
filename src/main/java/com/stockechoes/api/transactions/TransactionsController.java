@@ -49,14 +49,8 @@ public class TransactionsController {
     public Response saveTransactionHistory(
             @MultipartForm FileUploadBody body) {
 
-        String fileName = body.fileName;
         InputStream file = body.file;
         Long portfolioId = body.portfolioId;
-
-        if(fileName == null || fileName.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("No filename was provided").build();
-        }
 
         if(file == null) {
             return Response.status(Response.Status.BAD_REQUEST)

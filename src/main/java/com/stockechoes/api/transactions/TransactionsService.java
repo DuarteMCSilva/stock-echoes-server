@@ -10,6 +10,8 @@ import jakarta.ws.rs.core.Response;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @ApplicationScoped
 public class TransactionsService {
@@ -45,13 +47,18 @@ public class TransactionsService {
 
     public Response postTransactionHistory(InputStream csvFile, Long portfolioId) {
 
-        Portfolio portfolio = portfolioService.ensurePortfolioPresence(portfolioId);
+        Optional<Portfolio> portfolio = portfolioService.getPortfolioById(portfolioId);
 
-        if(portfolio == null) {
-            return Response.notModified("Error creating portfolio").build();
+        if(portfolio.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of(
+                            "error", "Portfolio not found",
+                            "portfolioId", portfolioId
+                    )).build();
         }
 
-        List<Transaction> importedTransactions = csvReaderService.getTransactionsFromCsv(csvFile, portfolioId);
+        List<Transaction> importedTransactions = csvReaderService
+                .getTransactionsFromCsv(csvFile, portfolioId);
 
         transactionsRepository.persist(importedTransactions);
 

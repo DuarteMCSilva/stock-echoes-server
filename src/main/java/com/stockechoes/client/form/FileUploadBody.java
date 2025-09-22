@@ -12,10 +12,6 @@ public class FileUploadBody {
     @PartType(MediaType.APPLICATION_OCTET_STREAM)
     public InputStream file;
 
-    @FormParam("fileName")
-    @PartType(MediaType.TEXT_PLAIN)
-    public String fileName;
-
     @FormParam("portfolioId")
     @PartType(MediaType.TEXT_PLAIN)
     public Long portfolioId;

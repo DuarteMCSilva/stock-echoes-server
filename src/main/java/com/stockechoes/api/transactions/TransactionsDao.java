@@ -58,21 +58,19 @@ public class TransactionsDao {
     }
 
     public List<HoldingDto> getHoldings(String portfolioId) {
-        String statement = "SELECT tick.symbol, tick.company_name as name, " +
-                " SUM(quantity) as quantity, SUM(cost * quantity)/SUM(quantity) as avgCost" +
+        String statement = "SELECT isin, " +
+                " SUM(quantity) as quantity, SUM(cost) as avgCost" +
                 " FROM transaction_table tr" +
-                " JOIN ticker_table tick on tick.id = tr.ticker.id" +
-                " WHERE tr.portfolio.id = ?1 " +
-                " GROUP BY tick.id";
+                " WHERE tr.portfolio.id = ?1 AND quantity > 0 " +
+                " GROUP BY isin";
 
         return transactionsRepository.find(statement, portfolioId)
                 .project(List.class).stream()
                 .map( (tr) -> {
                     String symbol = (String) tr.get(0);
-                    String name = (String) tr.get(1);
-                    int quantity = ( (Long) tr.get(2) ).intValue();
-                    double avgCost = (double) tr.get(3);
-                    return new HoldingDto(symbol, name, quantity, avgCost);
+                    int quantity = ( (Long) tr.get(1) ).intValue();
+                    BigDecimal avgCost = (BigDecimal) tr.get(2);
+                    return new HoldingDto(symbol, quantity, avgCost);
                 }).toList();
     }
 }

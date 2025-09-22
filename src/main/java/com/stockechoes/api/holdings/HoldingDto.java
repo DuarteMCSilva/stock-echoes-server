@@ -2,23 +2,22 @@ package com.stockechoes.api.holdings;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class HoldingDto {
 
     private String symbol;
 
-    private String name;
-
     private int quantity;
 
-    private double avgCost;
+    private BigDecimal avgCost;
 
     public HoldingDto(
-            String symbol, String name,
-            int quantity, double avgCost
+            String symbol,
+            int quantity, BigDecimal avgCost
     ) {
         this.symbol = symbol;
-        this.name = name;
         this.quantity = quantity;
         this.avgCost = avgCost;
     }
