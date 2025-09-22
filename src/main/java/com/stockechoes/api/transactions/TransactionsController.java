@@ -27,11 +27,10 @@ public class TransactionsController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     public List<TransactionsDto> getAllTransactionsByTicker(
-            @QueryParam("portfolio") String portfolioId,
+            @QueryParam("portfolio") Long portfolioId,
             @QueryParam("ticker") String ticker
     ) {
-        Long id = Long.valueOf(portfolioId); // TODO: validation
-        return transactionsService.getPortfolioTransactions(id, ticker);
+        return transactionsService.getPortfolioTransactions(portfolioId, ticker);
     }
 
     @GET

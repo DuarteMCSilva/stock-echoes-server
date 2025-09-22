@@ -42,7 +42,7 @@ public class TransactionsDao {
     public List<TransactionsDto> getPortfolioTransactions(Long portfolioId, String ticker) {
         String statement = "SELECT t.date, t.quantity, t.cost " +
                 " FROM transaction_table t " +
-                " WHERE portfolio.id = ?1 AND ticker.symbol = ?2 " +
+                " WHERE portfolio.id = ?1 AND isin = ?2 " + // TODO: ISIN or Ticker symbol?
                 " ORDER BY t.date ASC";
 
         return transactionsRepository.find(statement, portfolioId, ticker )
