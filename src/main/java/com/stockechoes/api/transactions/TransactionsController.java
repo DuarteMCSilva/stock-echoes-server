@@ -57,6 +57,7 @@ public class TransactionsController {
                     .entity("No file was provided").build();
         }
 
-        return transactionsService.postTransactionHistory(file, portfolioId);
+        List<Transaction> imported = transactionsService.postTransactionHistory(file, portfolioId);
+        return Response.ok("Lines saved: " + imported.size()).build();
     }
 }

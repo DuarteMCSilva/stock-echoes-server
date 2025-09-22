@@ -1,15 +1,16 @@
 package com.stockechoes.api.portfolios;
 
+import com.stockechoes.api.portfolios.exceptions.PortfolioExceptions.PortfolioNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import java.util.Optional;
 
 @ApplicationScoped
 public class PortfolioService {
     @Inject
     PortfolioRepository portfolioRepository;
 
-    public Optional<Portfolio> getPortfolioById(Long id) {
-        return portfolioRepository.findByIdOptional(id);
+    public Portfolio findOrThrow(Long id) {
+        return portfolioRepository.findByIdOptional(id)
+                .orElseThrow(() -> new PortfolioNotFoundException(id));
     }
 }
