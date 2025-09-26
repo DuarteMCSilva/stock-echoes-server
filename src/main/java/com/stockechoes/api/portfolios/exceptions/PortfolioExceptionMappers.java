@@ -4,6 +4,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 public class PortfolioExceptionMappers {
@@ -17,6 +18,20 @@ public class PortfolioExceptionMappers {
                     .entity(Map.of("error", e.getMessage(),
                             "portfolioId", e.getPortfolioId()
                             ))
+                    .build();
+        }
+    }
+
+    @Provider
+    public static class FileNotFoundExceptionMapper implements ExceptionMapper<FileNotFoundException> {
+
+        @Override
+        public Response toResponse(FileNotFoundException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(Map.of(
+                            "error", e.getMessage(),
+                            "code", "FileNotFound"
+                    ))
                     .build();
         }
     }

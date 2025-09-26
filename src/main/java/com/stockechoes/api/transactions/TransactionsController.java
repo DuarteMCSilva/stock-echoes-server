@@ -1,14 +1,17 @@
 package com.stockechoes.api.transactions;
 
-import com.stockechoes.client.form.FileUploadBody;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+import org.jboss.resteasy.reactive.PartType;
+import org.jboss.resteasy.reactive.RestForm;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -46,17 +49,15 @@ public class TransactionsController {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Transactional
     public Response saveTransactionHistory(
-            @MultipartForm FileUploadBody body) {
+            @RestForm("file") @PartType(MediaType.APPLICATION_OCTET_STREAM) File file,
+            @RestForm("portfolioId") Long portfolioId
+    ) throws FileNotFoundException {
+        InputStream inputStream = new FileInputStream(file);
 
-        InputStream file = body.file;
-        Long portfolioId = body.portfolioId;
-
-        if(file == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("No file was provided").build();
+        if(file.length() == 0) {
+            throw new FileNotFoundException("Empty File");
         }
-
-        List<Transaction> imported = transactionsService.postTransactionHistory(file, portfolioId);
+        List<Transaction> imported = transactionsService.postTransactionHistory(inputStream, portfolioId);
         return Response.ok("Lines saved: " + imported.size()).build();
     }
 }
