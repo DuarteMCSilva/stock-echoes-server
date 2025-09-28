@@ -1,21 +1,32 @@
 package com.stockechoes.api.tickers;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name="ticker_table")
 @Table(name="ticker_table")
+@NoArgsConstructor
 public class Ticker extends PanacheEntity {
 
+    private String isin;
     private String symbol;
-    private String company_name;
 
-    public Ticker() { };
+    @Column(name = "company_name")
+    private String companyName;
 
-    public Ticker(String symbol) { }
+    public Ticker(String isin) {
+        this.isin = isin;
+    }
 
-    public Ticker(String symbol, String company_name) { }
+    public Ticker(String isin, String symbol, String companyName) {
+        this.isin = isin;
+        this.symbol = symbol;
+        this.companyName = companyName;
+    }
+
 }

@@ -1,16 +1,16 @@
 insert into portfolios_table (id, name) values (10001, 'my-portfolio');
 
-INSERT INTO ticker_table (id, symbol, company_name) VALUES
-(10001, 'AAPL', 'Apple Inc.'),
-(10002, 'GOOGL', 'Alphabet Inc.'),
-(10003, 'AMZN', 'Amazon.com Inc.'),
-(10004, 'MSFT', 'Microsoft Corporation'),
-(10005, 'TSLA', 'Tesla Inc.'),
-(10006, 'META', 'Meta Platforms Inc.'),
-(10007, 'NFLX', 'Netflix Inc.'),
-(10008, 'NVDA', 'NVIDIA Corporation'),
-(10009, 'SPY', 'SPDR S&P 500 ETF Trust'),
-(10010, 'BRK.B', 'Berkshire Hathaway Inc.');
+INSERT INTO ticker_table (id, symbol, company_name, isin) VALUES
+(10001, 'AAPL', 'Apple Inc.', 'US1'),
+(10002, 'GOOGL', 'Alphabet Inc.', 'US2'),
+(10003, 'AMZN', 'Amazon.com Inc.', 'US3'),
+(10004, 'MSFT', 'Microsoft Corporation', 'US4'),
+(10005, 'TSLA', 'Tesla Inc.', 'US0378331005'),
+(10006, 'META', 'Meta Platforms Inc.', 'US5'),
+(10007, 'NFLX', 'Netflix Inc.', 'US6'),
+(10008, 'NVDA', 'NVIDIA Corporation', 'US7'),
+(10009, 'SPY', 'SPDR S&P 500 ETF Trust', 'US8'),
+(10010, 'BRK.B', 'Berkshire Hathaway Inc.', 'US9');
 
 INSERT INTO price_entry (id, ticker_id, price, date) VALUES
 (10001, 10001, 145.23, '2025-02-01'),
