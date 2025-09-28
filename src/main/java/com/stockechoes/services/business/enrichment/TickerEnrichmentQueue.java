@@ -25,8 +25,7 @@ public class TickerEnrichmentQueue {
     void tickerEnrichmentByIsin(String isin) {
         IsinRecord isinRecord = isinRecordService.fetchCompanyByIsin(isin);
 
-        // TODO: In case of non-existence should not be responsibility of this service to create it...
-        Optional<Ticker> ticker = tickerRepository.findByIsin(isin);
+        Optional<Ticker> ticker = tickerRepository.findByIdOptional(isin);
 
         if(ticker.isPresent()) {
             ticker.get().setCompanyName(isinRecord.getName());

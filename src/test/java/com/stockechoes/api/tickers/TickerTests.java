@@ -17,7 +17,7 @@ public class TickerTests {
 
     @Test
     void getByIsin() {
-        Optional<Ticker> ticker = tickerRepository.findByIsin("US1");
+        Optional<Ticker> ticker = tickerRepository.findByIdOptional("US1");
 
         assertTrue(ticker.isPresent());
     }
@@ -27,7 +27,7 @@ public class TickerTests {
     void persist_and_getByIsin() {
         String isin = "MockISIN";
         tickerRepository.persist(new Ticker(isin));
-        Optional<Ticker> ticker = tickerRepository.findByIsin(isin);
+        Optional<Ticker> ticker = tickerRepository.findByIdOptional(isin);
 
         assertTrue(ticker.isPresent());
     }

@@ -16,7 +16,7 @@ classDiagram
     }
 
     class Ticker {
-        - id: Long
+        - isin: String
         - symbol: String
         - company_name: String
     }

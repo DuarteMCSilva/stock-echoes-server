@@ -43,7 +43,7 @@ public class TickerEnrichmentTests {
         Thread.sleep(1000); // TODO: Use await() pattern instead.
 
         // Then
-        Ticker persisted = tickerRepository.findByIsin(isin)
+        Ticker persisted = tickerRepository.findByIdOptional(isin)
                 .orElseThrow(() -> new AssertionError("Ticker with isin " + isin + " not found"));
 
         assertEquals("BAC", persisted.getSymbol());
@@ -63,7 +63,7 @@ public class TickerEnrichmentTests {
         Thread.sleep(1000);
 
         // Then
-        Ticker persisted = tickerRepository.findByIsin(isin)
+        Ticker persisted = tickerRepository.findByIdOptional(isin)
                 .orElseThrow(() -> new AssertionError("Ticker with isin " + isin + " not found"));
 
         assertEquals("BAC", persisted.getSymbol());

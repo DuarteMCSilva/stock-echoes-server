@@ -15,10 +15,9 @@ public class TickerService {
     @Inject
     TickerEnrichmentService tickerEnrichmentService;
 
-    // TODO: Optimize by making isin the Id.
     // TODO: Optimize by enriching in a list, minimizing requests.
     public Ticker prepareTickerByIsin(String isin) {
-        Optional<Ticker> tickerOp = tickerRepository.findByIsin(isin);
+        Optional<Ticker> tickerOp = tickerRepository.findByIdOptional(isin);
 
         if(tickerOp.isPresent()) {
             return tickerOp.get();
