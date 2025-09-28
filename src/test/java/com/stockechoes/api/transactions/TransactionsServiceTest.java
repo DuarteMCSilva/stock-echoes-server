@@ -1,9 +1,7 @@
-package com.stockechoes.transaction;
+package com.stockechoes.api.transactions;
 
 import com.stockechoes.api.portfolios.PortfolioRepository;
 import com.stockechoes.api.portfolios.exceptions.PortfolioExceptions;
-import com.stockechoes.api.transactions.TransactionsDto;
-import com.stockechoes.api.transactions.TransactionsService;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

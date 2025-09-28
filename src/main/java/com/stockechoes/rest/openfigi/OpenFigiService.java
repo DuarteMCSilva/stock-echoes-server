@@ -25,7 +25,7 @@ public class OpenFigiService {
 
         String response = openFigiClient.fetchTickerByIsin(List.of(params));
 
-        List<OpenFigiResponseWrapper> wrappers = null;
+        List<OpenFigiResponseWrapper> wrappers;
         try {
             wrappers = mapToEntityOrThrow(response);
         } catch (JsonProcessingException e) {

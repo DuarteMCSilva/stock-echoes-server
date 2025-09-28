@@ -15,7 +15,8 @@ public class PortfolioExceptionMappers {
         @Override
         public Response toResponse(PortfolioExceptions.PortfolioNotFoundException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(Map.of("error", e.getMessage(),
+                    .entity(Map.of(
+                            "error", e.getMessage(),
                             "portfolioId", e.getPortfolioId()
                             ))
                     .build();

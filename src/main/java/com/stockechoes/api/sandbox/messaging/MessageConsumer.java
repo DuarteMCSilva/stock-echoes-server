@@ -1,4 +1,4 @@
-package com.stockechoes.api.graphql;
+package com.stockechoes.api.sandbox.messaging;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
