@@ -59,7 +59,7 @@ public class TransactionsDao {
 
     public List<HoldingDto> getHoldings(String portfolioId) {
         String statement = "SELECT isin, " +
-                " SUM(quantity) as quantity, SUM(cost) as avgCost" +
+                " SUM(quantity) as quantity, SUM(cost) as avgCost" + // TODO: Currently total cost, not avg!
                 " FROM transaction_table tr" +
                 " WHERE tr.portfolio.id = ?1 AND quantity > 0 " +
                 " GROUP BY isin";

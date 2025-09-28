@@ -1,7 +1,7 @@
 package com.stockechoes.api.transactions;
 
 import com.stockechoes.api.portfolios.PortfolioService;
-import com.stockechoes.services.business.isin.IsinMapperService;
+import com.stockechoes.services.business.isin.IsinRecordService;
 import com.stockechoes.services.utility.csv.CsvReaderService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -25,7 +25,7 @@ public class TransactionsService {
     CsvReaderService csvReaderService;
 
     @Inject
-    IsinMapperService isinMapperService; // TODO
+    IsinRecordService isinRecordService; // TODO
 
     public List<TransactionsDto> getPortfolioTransactions(
             Long portfolioId, String ticker
