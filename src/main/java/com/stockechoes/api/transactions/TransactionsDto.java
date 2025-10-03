@@ -18,12 +18,10 @@ public class TransactionsDto {
 
     private BigDecimal cost;
 
-    public TransactionsDto(
-            LocalDate date, String ticker,
-            int quantity, BigDecimal cost) {
-        this.date = date;
-        this.ticker = ticker;
-        this.quantity = quantity;
-        this.cost = cost;
+    public TransactionsDto(Transaction transaction) {
+        this.date = transaction.getDate();
+        this.ticker = transaction.getIsin();
+        this.quantity = transaction.getQuantity();
+        this.cost = transaction.getCost();
     }
 }

@@ -13,9 +13,6 @@ import java.util.List;
 public class TransactionsService {
 
     @Inject
-    TransactionsDao transactionsDao;
-
-    @Inject
     TransactionsRepository transactionsRepository;
 
     @Inject
@@ -30,13 +27,16 @@ public class TransactionsService {
     public List<TransactionsDto> getPortfolioTransactions(
             Long portfolioId, String ticker
     ) {
+        List<Transaction> transactions;
         portfolioService.findOrThrow(portfolioId);
 
         if(ticker == null || ticker.isEmpty()) {
-            return transactionsDao.getPortfolioTransactions(portfolioId);
+            transactions = transactionsRepository.findTransactionsByPortfolio(portfolioId);
+        } else {
+            transactions = transactionsRepository.findTransactionsByPortfolioAndTicker(portfolioId, ticker);
         }
 
-        return transactionsDao.getPortfolioTransactions(portfolioId,ticker);
+        return transactions.stream().map(TransactionsDto::new).toList();
     }
 
     public List<Transaction> postTransactionHistory(
