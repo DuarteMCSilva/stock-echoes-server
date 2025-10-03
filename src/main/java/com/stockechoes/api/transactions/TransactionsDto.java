@@ -1,6 +1,7 @@
 package com.stockechoes.api.transactions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.stockechoes.api.tickers.Ticker;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,7 +13,7 @@ public class TransactionsDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
     private LocalDate date;
 
-    private String ticker;
+    private Ticker ticker;
 
     private int quantity;
 
@@ -20,7 +21,7 @@ public class TransactionsDto {
 
     public TransactionsDto(Transaction transaction) {
         this.date = transaction.getDate();
-        this.ticker = transaction.getIsin();
+        this.ticker = transaction.getTicker();
         this.quantity = transaction.getQuantity();
         this.cost = transaction.getCost();
     }

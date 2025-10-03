@@ -1,6 +1,7 @@
 package com.stockechoes.api.transactions;
 
 import com.stockechoes.api.portfolios.Portfolio;
+import com.stockechoes.api.tickers.Ticker;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,12 +25,7 @@ public class Transaction extends PanacheEntity {
 
     private BigDecimal cost;
 
-    /*
-    TODO: Do a later sync.
-    Not practical, due to the possibility of non-existence in the db when
-    the transaction csv is loaded.
     @ManyToOne
     @JoinColumn(name = "ticker_id")
     private Ticker ticker;
-    */
 }

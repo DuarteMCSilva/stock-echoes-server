@@ -12,7 +12,7 @@ public class TransactionsRepository implements PanacheRepository<Transaction> {
         return find("portfolio.id = ?1 ORDER BY date ASC", id).list();
     }
 
-    public List<Transaction> findTransactionsByPortfolioAndTicker(Long id, String isin) {
-        return find("portfolio.id = ?1 and isin = ?2 ORDER BY date ASC", id, isin).list();
+    public List<Transaction> findTransactionsByPortfolioAndTicker(Long id, String symbol) {
+        return find("portfolio.id = ?1 and ticker.symbol = ?2 ORDER BY date ASC", id, symbol).list();
     }
 }

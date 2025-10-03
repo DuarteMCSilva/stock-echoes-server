@@ -37,10 +37,10 @@ public class TransactionsController {
     }
 
     @GET
-    @Path("all") // No business case, only debugging.
+    @Path("all") // TODO: ERASE - No use case, only debugging.
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<Transaction> getAllTransactions() {
-        return transactionsDao.getTransactions();
+    public List<TransactionsDto> getAllTransactions() {
+        return transactionsDao.getTransactions().stream().map(TransactionsDto::new).toList();
     }
 
 

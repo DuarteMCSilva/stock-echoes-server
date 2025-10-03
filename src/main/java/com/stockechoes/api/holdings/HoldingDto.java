@@ -1,5 +1,7 @@
 package com.stockechoes.api.holdings;
 
+import com.stockechoes.api.tickers.Ticker;
+import com.stockechoes.api.tickers.TickerDto;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -7,17 +9,17 @@ import java.math.BigDecimal;
 @Data
 public class HoldingDto {
 
-    private String symbol;
-
     private int quantity;
 
     private BigDecimal avgCost;
 
+    private TickerDto ticker;
+
     public HoldingDto(
-            String symbol,
+            Ticker ticker,
             int quantity, BigDecimal avgCost
     ) {
-        this.symbol = symbol;
+        this.ticker = new TickerDto(ticker);
         this.quantity = quantity;
         this.avgCost = avgCost;
     }
