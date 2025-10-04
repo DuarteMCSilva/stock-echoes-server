@@ -2,9 +2,11 @@ package com.stockechoes.api.transactions;
 
 import com.stockechoes.api.portfolios.PortfolioRepository;
 import com.stockechoes.api.portfolios.exceptions.PortfolioExceptions;
+import com.stockechoes.services.business.enrichment.TickerEnrichmentService;
+import io.quarkus.test.InjectMock;
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,9 +24,13 @@ public class TransactionsServiceTest {
     @Inject
     PortfolioRepository portfolioRepository;
 
+    @InjectMock
+    @SuppressWarnings("unused")
+    TickerEnrichmentService tickerEnrichmentService;
+
     @Test
     @DisplayName("Should save transactions linked to a portfolio")
-    @Transactional
+    @TestTransaction
     void postTransactionHistoryTest() {
         // Given
         InputStream inputStream = getClass().getResourceAsStream("/data/transactions.csv");
@@ -42,7 +48,7 @@ public class TransactionsServiceTest {
 
     @Test
     @DisplayName("Should throw when portfolio is not found")
-    @Transactional
+    @TestTransaction
     void portfolioNotFoundTest() {
         InputStream inputStream = getClass().getResourceAsStream("/data/transactions.csv");
         assertNotNull(inputStream, "CSV file not found in resources!");

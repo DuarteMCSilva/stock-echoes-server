@@ -22,7 +22,7 @@ public class TickerEnrichmentQueue {
 
     @Incoming("ticker-enrichment")
     @Transactional
-    void tickerEnrichmentByIsin(String isin) {
+    public void tickerEnrichmentByIsin(String isin) {
         IsinRecord isinRecord = isinRecordService.fetchCompanyByIsin(isin);
 
         Optional<Ticker> ticker = tickerRepository.findByIdOptional(isin);

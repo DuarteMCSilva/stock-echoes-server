@@ -1,8 +1,8 @@
 package com.stockechoes.api.tickers;
 
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class TickerTests {
     }
 
     @Test
-    @Transactional
+    @TestTransaction
     void persist_and_getByIsin() {
         String isin = "MockISIN";
         tickerRepository.persist(new Ticker(isin));

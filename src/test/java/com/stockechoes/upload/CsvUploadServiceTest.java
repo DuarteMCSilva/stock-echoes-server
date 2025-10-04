@@ -3,9 +3,9 @@ package com.stockechoes.upload;
 import com.stockechoes.api.transactions.Transaction;
 import com.stockechoes.services.utility.csv.CsvReaderService;
 import com.stockechoes.services.utility.csv.TransactionImportEntity;
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,15 +30,16 @@ public class CsvUploadServiceTest {
         InputStream inputStream = getClass().getResourceAsStream("/data/transactions.csv");
         assertNotNull(inputStream, "CSV file not found in resources!");
         List<TransactionImportEntity> transactions = csvReaderService.getListFromCsv(inputStream);
+        inputStream.close();
 
         assertEquals(18, transactions.size());
         assertEquals(BigDecimal.valueOf(278.59), transactions.getFirst().getTotalPrice());
     }
 
     @Test
-    @Transactional
+    @TestTransaction
     @DisplayName("getAll should return all users mapped to WorkationDto")
-    void converter() throws IOException {
+    void converter() {
         TransactionImportEntity transactionImportEntity = getMockTransaction();
 
         Transaction transaction = csvReaderService.toEntity(transactionImportEntity, 10001L);
@@ -46,7 +47,7 @@ public class CsvUploadServiceTest {
         assertEquals(10, transaction.getQuantity());
         assertEquals(BigDecimal.valueOf(331.00), transaction.getCost());
 
-        assertEquals("USisin", transaction.getIsin());
+        assertEquals("USisin", transaction.getTicker().getIsin());
         assertEquals("my-portfolio", transaction.getPortfolio().getName());
     }
 

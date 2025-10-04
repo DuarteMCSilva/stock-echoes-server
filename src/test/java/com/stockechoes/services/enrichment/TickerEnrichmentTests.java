@@ -3,13 +3,13 @@ package com.stockechoes.services.enrichment;
 
 import com.stockechoes.api.tickers.Ticker;
 import com.stockechoes.api.tickers.TickerRepository;
-import com.stockechoes.services.business.enrichment.TickerEnrichmentService;
+import com.stockechoes.services.business.enrichment.TickerEnrichmentQueue;
 import com.stockechoes.services.business.isin.IsinRecord;
 import com.stockechoes.services.business.isin.IsinRecordService;
 import io.quarkus.test.InjectMock;
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,24 +23,21 @@ public class TickerEnrichmentTests {
     TickerRepository tickerRepository;
 
     @Inject
-    TickerEnrichmentService tickerEnrichmentService;
+    TickerEnrichmentQueue tickerEnrichmentQueue;
 
     @InjectMock
     IsinRecordService isinRecordService;
 
     @Test
     @DisplayName("Should enrich existing isin asynchronously")
-    @Transactional
-    void enrichTickerData() throws InterruptedException {
+    @TestTransaction
+    void enrichTickerData() {
         // Given
-        String isin = "US0605051046";
-        tickerRepository.persist(new Ticker(isin));
+        String isin = "US1";
         when(isinRecordService.fetchCompanyByIsin(isin)).thenReturn(getMockIsinRecord(isin));
 
         // When
-        tickerEnrichmentService.enrichTickerByIsin(isin);
-
-        Thread.sleep(1000); // TODO: Use await() pattern instead.
+        tickerEnrichmentQueue.tickerEnrichmentByIsin(isin);
 
         // Then
         Ticker persisted = tickerRepository.findByIdOptional(isin)
@@ -51,16 +48,14 @@ public class TickerEnrichmentTests {
 
     @Test
     @DisplayName("Should enrich non-existent ticker asynchronously")
-    @Transactional
-    void enrichTickerData_create() throws InterruptedException {
+    @TestTransaction
+    void enrichTickerData_create() {
         // Given
         String isin = "US0605051046";
         when(isinRecordService.fetchCompanyByIsin(isin)).thenReturn(getMockIsinRecord(isin));
 
         // When
-        tickerEnrichmentService.enrichTickerByIsin(isin);
-
-        Thread.sleep(1000);
+        tickerEnrichmentQueue.tickerEnrichmentByIsin(isin);
 
         // Then
         Ticker persisted = tickerRepository.findByIdOptional(isin)

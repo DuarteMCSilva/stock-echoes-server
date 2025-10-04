@@ -9,10 +9,7 @@ import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.reactive.PartType;
 import org.jboss.resteasy.reactive.RestForm;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
 @ApplicationScoped
@@ -51,13 +48,14 @@ public class TransactionsController {
     public Response saveTransactionHistory(
             @RestForm("file") @PartType(MediaType.APPLICATION_OCTET_STREAM) File file,
             @RestForm("portfolioId") Long portfolioId
-    ) throws FileNotFoundException {
+    ) throws IOException {
         InputStream inputStream = new FileInputStream(file);
 
-        if(file.length() == 0) {
+        if(file.length() == 0 || !file.isFile()) {
             throw new FileNotFoundException("Empty File");
         }
         List<Transaction> imported = transactionsService.postTransactionHistory(inputStream, portfolioId);
+        inputStream.close();
         return Response.ok("Lines saved: " + imported.size()).build();
     }
 }
