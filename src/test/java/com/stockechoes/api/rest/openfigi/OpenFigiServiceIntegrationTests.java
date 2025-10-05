@@ -3,10 +3,13 @@ package com.stockechoes.api.rest.openfigi;
 import com.stockechoes.rest.openfigi.OpenFigiService;
 import com.stockechoes.services.business.isin.IsinRecord;
 import com.stockechoes.rest.openfigi.exceptions.FigiErrorException;
+import com.stockechoes.services.business.isin.IsinRecordService;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -24,6 +27,9 @@ public class OpenFigiServiceIntegrationTests {
 
     @Inject
     OpenFigiService openFigiService;
+
+    @Inject
+    IsinRecordService isinRecordService;
 
     @Test
     void isinDataLookup() {
@@ -46,4 +52,13 @@ public class OpenFigiServiceIntegrationTests {
                 () -> openFigiService.fetchIsinMap(isin));
     }
 
+    @Test
+    void isinDataLookup_Multi() {
+        List<IsinRecord> list = isinRecordService.fetchCompanyByIsin(List.of("US0605051046","US0378331005"));
+
+        assertEquals(list.getFirst().getIsin(), "US0605051046");
+        assertEquals(list.getFirst().getTicker(), "BAC");
+        assertEquals(list.get(1).getIsin(), "US0378331005");
+        assertEquals(list.get(1).getTicker(), "AAPL");
+    }
 }

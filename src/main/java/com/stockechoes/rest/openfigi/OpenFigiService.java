@@ -12,6 +12,7 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @ApplicationScoped
 public class OpenFigiService {
@@ -45,5 +46,24 @@ public class OpenFigiService {
                 response,
                 new TypeReference<List<OpenFigiResponseWrapper>>() {
                 });
+    }
+
+    public List<IsinRecord> fetchIsinMap(List<OpenFigiRequestEntity> params) throws FigiErrorException {
+
+        String response = openFigiClient.fetchTickerByIsin(params);
+
+        List<OpenFigiResponseWrapper> wrappers;
+        try {
+            wrappers = mapToEntityOrThrow(response);
+        } catch (JsonProcessingException e) {
+            throw new FigiErrorException(e, params.toString());
+        }
+
+        return IntStream.range(0, wrappers.size())
+                .mapToObj(i -> {
+                    IsinRecord record = wrappers.get(i).getData().getFirst();
+                    record.setIsin(params.get(i).getIdValue());
+                    return record;
+                }).toList();
     }
 }

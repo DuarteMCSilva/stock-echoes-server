@@ -9,10 +9,11 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 public class TickerEnrichmentService {
 
     @Inject
-    @Channel("ticker-enrichment")
+    @Channel("ticker-enrichment2")
     Emitter<String> emitter;
 
     public void enrichTickerByIsin(String isin) {
         this.emitter.send(isin);
+        System.out.println("SENT isin");
     }
 }
