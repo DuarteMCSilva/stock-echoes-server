@@ -37,7 +37,7 @@ public class TickerEnrichmentTests {
     void enrichTickerData() throws InterruptedException {
         // Given
         String isin = "US1";
-        when(isinRecordService.fetchCompanyByIsin(List.of(isin))).thenReturn(List.of(getMockIsinRecord(isin)));
+        when(isinRecordService.fetchCompanyByIsinList(List.of(isin))).thenReturn(List.of(getMockIsinRecord(isin)));
 
         // When
         tickerEnrichmentService.batchTickerEnrichment(List.of(isin));
@@ -56,7 +56,7 @@ public class TickerEnrichmentTests {
     void enrichTickerData_create() {
         // Given
         String isin = "US0605051046";
-        when(isinRecordService.fetchCompanyByIsin(List.of(isin))).thenReturn(List.of(getMockIsinRecord(isin)));
+        when(isinRecordService.fetchCompanyByIsinList(List.of(isin))).thenReturn(List.of(getMockIsinRecord(isin)));
 
         // When
         tickerEnrichmentService.batchTickerEnrichment(List.of(isin));

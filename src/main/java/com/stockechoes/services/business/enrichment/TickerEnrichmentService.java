@@ -42,7 +42,7 @@ public class TickerEnrichmentService {
 
     @Transactional
     public void batchTickerEnrichment(List<String> isinBatch) {
-        List<IsinRecord> isinRecord = isinRecordService.fetchCompanyByIsin(isinBatch);
+        List<IsinRecord> isinRecord = isinRecordService.fetchCompanyByIsinList(isinBatch);
 
         isinRecord.forEach( (record) -> tickerService.enrichTickerFromIsinRecord(record));
     }
