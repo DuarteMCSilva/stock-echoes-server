@@ -17,4 +17,7 @@ public class IsinRecord {
 
     @JsonProperty("exchCode")
     private String exchangeCode;
+
+    private String error;
+    private String warning;
 }

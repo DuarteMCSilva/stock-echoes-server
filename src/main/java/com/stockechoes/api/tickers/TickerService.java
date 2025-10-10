@@ -4,6 +4,7 @@ import com.stockechoes.services.business.enrichment.TickerEnrichmentService;
 import com.stockechoes.services.business.isin.IsinRecord;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ public class TickerService {
     @Inject
     TickerEnrichmentService tickerEnrichmentService;
 
+    @Transactional
     public void prepareTickerByIsin(String isin) {
         Optional<Ticker> tickerOp = tickerRepository.findByIdOptional(isin);
 
