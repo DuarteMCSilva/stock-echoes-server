@@ -12,6 +12,7 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 @ApplicationScoped
 public class OpenFigiService {
@@ -20,10 +21,18 @@ public class OpenFigiService {
     @RestClient
     OpenFigiClient openFigiClient;
 
-    public IsinRecord fetchIsinMap(String isin) throws FigiErrorException {
-        OpenFigiRequestEntity params = new OpenFigiRequestEntity("ID_ISIN", isin);
+    private List<OpenFigiResponseWrapper> mapToEntityOrThrow(String response) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
 
-        String response = openFigiClient.fetchTickerByIsin(List.of(params));
+        return mapper.readValue(
+                response,
+                new TypeReference<>() {
+                });
+    }
+
+    public List<IsinRecord> fetchIsinMap(List<OpenFigiRequestEntity> params) throws FigiErrorException {
+
+        String response = openFigiClient.fetchTickerByIsin(params);
 
         List<OpenFigiResponseWrapper> wrappers;
         try {
@@ -32,18 +41,11 @@ public class OpenFigiService {
             throw new FigiErrorException(e, params.toString());
         }
 
-        IsinRecord stock = wrappers.getFirst().getData().getFirst();
-        // TODO: refine, I want the correct one, not necessarily the first.
-        stock.setIsin(isin);
-        return stock;
-    }
-
-    private List<OpenFigiResponseWrapper> mapToEntityOrThrow(String response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        return mapper.readValue(
-                response,
-                new TypeReference<List<OpenFigiResponseWrapper>>() {
-                });
+        return IntStream.range(0, wrappers.size())
+                .mapToObj(i -> {
+                    IsinRecord record = wrappers.get(i).getData().getFirst();
+                    record.setIsin(params.get(i).getIdValue());
+                    return record;
+                }).toList();
     }
 }
