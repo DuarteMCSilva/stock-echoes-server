@@ -26,6 +26,7 @@ public class TickerEnrichmentService {
         if(eventBuffer == null) {
             this.eventBuffer = new EventBuffer<>(2, 1000);
             this.subscribe();
+            System.out.println("Ticker enrichment process has started.");
         }
         eventBuffer.emit(isin);
     }
@@ -36,7 +37,10 @@ public class TickerEnrichmentService {
         multi.subscribe().with(
                 this::batchTickerEnrichment,
                 System.out::println,
-                () -> this.eventBuffer = null
+                () -> {
+                    System.out.println("Ticker enrichment process completed!");
+                    this.eventBuffer = null;
+                }
         );
     }
 
