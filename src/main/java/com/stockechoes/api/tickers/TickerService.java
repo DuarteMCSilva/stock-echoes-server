@@ -38,8 +38,9 @@ public class TickerService {
         if(ticker.isPresent()) {
             ticker.get().setCompanyName(isinRecord.getName());
             ticker.get().setSymbol(isinRecord.getTicker());
+            ticker.get().setSecurityType(isinRecord.getSecurityType());
         } else {
-            Ticker t = new Ticker(isin, isinRecord.getTicker(), isinRecord.getName());
+            Ticker t = new Ticker(isin, isinRecord);
             tickerRepository.persist(t);
         }
 

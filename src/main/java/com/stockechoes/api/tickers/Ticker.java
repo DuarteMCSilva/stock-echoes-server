@@ -1,5 +1,6 @@
 package com.stockechoes.api.tickers;
 
+import com.stockechoes.services.business.isin.IsinRecord;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +19,9 @@ public class Ticker extends PanacheEntityBase {
     private String isin;
     private String symbol;
 
+    @Column(name = "security_type")
+    private String securityType;
+
     @Column(name = "company_name")
     private String companyName;
 
@@ -25,10 +29,11 @@ public class Ticker extends PanacheEntityBase {
         this.isin = isin;
     }
 
-    public Ticker(String isin, String symbol, String companyName) {
+    public Ticker(String isin, IsinRecord isinRecord) {
         this.isin = isin;
-        this.symbol = symbol;
-        this.companyName = companyName;
+        this.symbol = isinRecord.getTicker();
+        this.companyName = isinRecord.getName();
+        this.securityType = isinRecord.getSecurityType();
     }
 
 }

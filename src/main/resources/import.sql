@@ -2,10 +2,10 @@ insert into portfolios_table (id, name) values
 (10001, 'my-portfolio'),
 (10002, 'empty-portfolio');
 
-INSERT INTO ticker_table (isin, symbol, company_name ) VALUES
-( 'US1', 'AAPL', 'Apple Inc.'),
-( 'US2', 'GOOGL', 'Alphabet Inc.'),
-( 'US3', 'AMZN', 'Amazon.com Inc.');
+INSERT INTO ticker_table (isin, symbol, company_name, security_type ) VALUES
+( 'US1', 'AAPL', 'Apple Inc.', 'Common Stock'),
+( 'US2', 'GOOGL', 'Alphabet Inc.', 'Common Stock'),
+( 'US3', 'AMZN', 'Amazon.com Inc.', 'Common Stock');
 
 
 INSERT INTO price_entry (id, ticker_id, price, date) VALUES
