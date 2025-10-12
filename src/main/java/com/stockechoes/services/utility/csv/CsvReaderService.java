@@ -24,6 +24,7 @@ public class CsvReaderService {
 
     public List<Transaction> getTransactionsFromCsv(InputStream stream, Long portfolioId ) {
         return getListFromCsv(stream).stream()
+                .filter( (tie) -> !tie.getIsin().trim().isEmpty())
                 .map((tie) -> {
                     tickerService.prepareTickerByIsin(tie.getIsin());
                     return toEntity(tie, portfolioId);

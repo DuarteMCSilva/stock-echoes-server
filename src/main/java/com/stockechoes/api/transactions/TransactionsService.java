@@ -1,10 +1,10 @@
 package com.stockechoes.api.transactions;
 
 import com.stockechoes.api.portfolios.PortfolioService;
-import com.stockechoes.services.business.isin.IsinRecordService;
 import com.stockechoes.services.utility.csv.CsvReaderService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.io.InputStream;
 import java.util.List;
@@ -21,9 +21,6 @@ public class TransactionsService {
     @Inject
     CsvReaderService csvReaderService;
 
-    @Inject
-    IsinRecordService isinRecordService; // TODO
-
     public List<TransactionsDto> getPortfolioTransactions(
             Long portfolioId, String ticker
     ) {
@@ -39,6 +36,7 @@ public class TransactionsService {
         return transactions.stream().map(TransactionsDto::new).toList();
     }
 
+    @Transactional
     public List<Transaction> postTransactionHistory(
             InputStream csvFile, Long portfolioId
     ) {
@@ -47,6 +45,7 @@ public class TransactionsService {
         List<Transaction> importedTransactions = csvReaderService
                 .getTransactionsFromCsv(csvFile, portfolioId);
 
+        System.out.println("$postTransactionHistory - Persisting transactions...");
         transactionsRepository.persist(importedTransactions);
 
         // TODO: Avoid duplicate values, on duplicate requests.

@@ -47,7 +47,9 @@ public class EventBuffer<T> {
             batchedMulti = addDebounceToMulti(batchedMulti, debounceTime);
         }
 
-        return batchedMulti.ifNoItem().after(idleTime).recoverWithCompletion();
+        return batchedMulti
+                .onItem().invoke((batch) -> System.out.println("Batching: " + batch ))
+                .ifNoItem().after(idleTime).recoverWithCompletion();
     }
 
     private Multi<List<T>> addDebounceToMulti(Multi<List<T>> multi, Duration debounceTime) {

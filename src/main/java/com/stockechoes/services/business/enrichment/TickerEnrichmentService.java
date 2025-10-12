@@ -24,7 +24,7 @@ public class TickerEnrichmentService {
 
     public void enrichTickerByIsin(String isin) {
         if(eventBuffer == null) {
-            this.eventBuffer = new EventBuffer<>(2, 1000);
+            this.eventBuffer = new EventBuffer<>(10, 1000);
             this.subscribe();
             System.out.println("Ticker enrichment process has started.");
         }

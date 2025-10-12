@@ -12,6 +12,7 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 @ApplicationScoped
@@ -23,11 +24,7 @@ public class OpenFigiService {
 
     private List<OpenFigiResponseWrapper> mapToEntityOrThrow(String response) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-
-        return mapper.readValue(
-                response,
-                new TypeReference<>() {
-                });
+        return mapper.readValue(response, new TypeReference<>() {});
     }
 
     public List<IsinRecord> fetchIsinMap(List<OpenFigiRequestEntity> params) throws FigiErrorException {
@@ -43,9 +40,23 @@ public class OpenFigiService {
 
         return IntStream.range(0, wrappers.size())
                 .mapToObj(i -> {
-                    IsinRecord record = wrappers.get(i).getData().getFirst();
-                    record.setIsin(params.get(i).getIdValue());
-                    return record;
-                }).toList();
+                    String isin = params.get(i).getIdValue();
+                    OpenFigiResponseWrapper recordWrapper = wrappers.get(i);
+
+                    if(recordWrapper.hasError()) {
+                        System.out.printf(recordWrapper.getMessage() +
+                                " - ISIN %s%n", isin);
+                        return null;
+                    }
+
+                    return selectIsinRecord(recordWrapper, isin);
+                })
+                .filter(Objects::nonNull).toList();
+    }
+
+    private IsinRecord selectIsinRecord(OpenFigiResponseWrapper wrapper, String isin) {
+        IsinRecord record = wrapper.getData().getFirst(); // TODO: not exactly first.
+        record.setIsin(isin);
+        return record;
     }
 }
