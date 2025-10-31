@@ -1,9 +1,9 @@
-package com.stockechoes.api.auth.user;
+package com.stockechoes.api.auth.forms;
 
 import lombok.Getter;
 
 @Getter
-public class UserCredentialsForm {
+public class AuthCredentialsForm {
     private String username;
     private String password;
 }

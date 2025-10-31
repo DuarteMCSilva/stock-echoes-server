@@ -1,6 +1,6 @@
 package com.stockechoes.core.auth.jwt;
 
-import com.stockechoes.api.auth.user.UserCredentialsForm;
+import com.stockechoes.api.auth.forms.AuthCredentialsForm;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -19,7 +19,7 @@ public class JwtAuthService {
     @ConfigProperty(name="echoes.jwt.max-age", defaultValue = "600")
     int jwtMaxAge;
 
-    public NewCookie getJwtAuthCookie(UserCredentialsForm credentials) {
+    public NewCookie getJwtAuthCookie(AuthCredentialsForm credentials) {
         int expiresIn = jwtMaxAge;
         String token = issueJwt(credentials, (long) expiresIn);
 
@@ -29,7 +29,7 @@ public class JwtAuthService {
                 .build();
     }
 
-    private String issueJwt(UserCredentialsForm credentials, Long expiresIn) {
+    private String issueJwt(AuthCredentialsForm credentials, Long expiresIn) {
         return Jwt.issuer("quarkus-jwt")
                 .expiresIn(expiresIn)
                 .upn(credentials.getUsername()) // Retrieve from user?
