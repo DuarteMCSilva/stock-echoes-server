@@ -1,14 +1,16 @@
 package com.stockechoes.api.portfolio.portfolios.exceptions;
 
+import com.stockechoes.api.GenericApiException;
+import jakarta.ws.rs.core.Response;
 import lombok.Getter;
 
 public class PortfolioExceptions {
     @Getter
-    public static class PortfolioNotFoundException extends RuntimeException {
+    public static class PortfolioNotFoundException extends GenericApiException {
         private final Long portfolioId;
 
         public PortfolioNotFoundException(Long portfolioId) {
-            super("Portfolio not found.");
+            super(Response.Status.NOT_FOUND, "Portfolio not found.");
             this.portfolioId = portfolioId;
         }
     }
