@@ -1,7 +1,9 @@
 package com.stockechoes.api.transactions;
 
-import com.stockechoes.api.portfolios.PortfolioRepository;
-import com.stockechoes.api.portfolios.exceptions.PortfolioExceptions;
+import com.stockechoes.api.portfolio.portfolios.PortfolioRepository;
+import com.stockechoes.api.portfolio.portfolios.exceptions.PortfolioExceptions;
+import com.stockechoes.api.portfolio.transactions.TransactionsDto;
+import com.stockechoes.api.portfolio.transactions.TransactionsService;
 import com.stockechoes.services.business.enrichment.TickerEnrichmentService;
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.TestTransaction;

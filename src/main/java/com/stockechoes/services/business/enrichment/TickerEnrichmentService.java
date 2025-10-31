@@ -1,6 +1,6 @@
 package com.stockechoes.services.business.enrichment;
 
-import com.stockechoes.api.tickers.TickerService;
+import com.stockechoes.api.portfolio.tickers.TickerService;
 import com.stockechoes.services.business.isin.IsinRecord;
 import com.stockechoes.services.business.isin.IsinRecordService;
 import com.stockechoes.services.utility.eventBuffer.EventBuffer;
@@ -49,5 +49,6 @@ public class TickerEnrichmentService {
         List<IsinRecord> isinRecord = isinRecordService.fetchCompanyByIsinList(isinBatch);
 
         isinRecord.forEach( (record) -> tickerService.enrichTickerFromIsinRecord(record));
+        System.out.println("Enriched tickers: " + isinBatch);
     }
 }

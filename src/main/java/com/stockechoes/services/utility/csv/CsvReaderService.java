@@ -5,10 +5,10 @@ import java.util.*;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.stockechoes.api.portfolios.Portfolio;
-import com.stockechoes.api.tickers.Ticker;
-import com.stockechoes.api.tickers.TickerService;
-import com.stockechoes.api.transactions.Transaction;
+import com.stockechoes.api.portfolio.portfolios.Portfolio;
+import com.stockechoes.api.portfolio.tickers.Ticker;
+import com.stockechoes.api.portfolio.tickers.TickerService;
+import com.stockechoes.api.portfolio.transactions.Transaction;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;

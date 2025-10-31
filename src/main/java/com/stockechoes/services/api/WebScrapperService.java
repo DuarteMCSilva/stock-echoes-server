@@ -1,6 +1,6 @@
 package com.stockechoes.services.api;
 
-import com.stockechoes.api.prices.PriceEntryDto;
+import com.stockechoes.api.market.prices.PriceEntryDto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;

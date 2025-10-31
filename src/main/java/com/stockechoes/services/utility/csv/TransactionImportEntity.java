@@ -3,7 +3,6 @@ package com.stockechoes.services.utility.csv;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 import com.opencsv.bean.CsvDate;
-import com.stockechoes.api.transactions.Transaction;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

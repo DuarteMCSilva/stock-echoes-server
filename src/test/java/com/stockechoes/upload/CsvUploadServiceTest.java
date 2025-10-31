@@ -1,6 +1,6 @@
 package com.stockechoes.upload;
 
-import com.stockechoes.api.transactions.Transaction;
+import com.stockechoes.api.portfolio.transactions.Transaction;
 import com.stockechoes.services.utility.csv.CsvReaderService;
 import com.stockechoes.services.utility.csv.TransactionImportEntity;
 import io.quarkus.test.TestTransaction;
