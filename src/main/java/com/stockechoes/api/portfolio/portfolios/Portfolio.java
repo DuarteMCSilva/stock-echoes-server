@@ -1,13 +1,22 @@
 package com.stockechoes.api.portfolio.portfolios;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name="portfolios_table")
-public class Portfolio extends PanacheEntity {
+public class Portfolio extends PanacheEntityBase {
+
+    @Id
+    @GeneratedValue
+    @JsonIgnore
+    public Long id;
+
+    @JsonIgnore
+    public Long accountId;
 
     private String name;
 
