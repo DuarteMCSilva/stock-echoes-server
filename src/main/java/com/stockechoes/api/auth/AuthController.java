@@ -21,11 +21,12 @@ public class AuthController {
 
     @POST
     @Path("/login")
-    public Response login(AuthCredentialsForm credentials) {
+    public Response login(AuthCredentialsForm credentialsForm) {
 
-        authService.assertValidCredentials(credentials);
+        AuthCredentials storedCredentials = authService.findUserCredentialsOrThrow(credentialsForm.getUsername());
+        authService.assertMatchingPassword(storedCredentials, credentialsForm.getPassword());
 
-        NewCookie authCookies = authService.getAuthCookies(credentials);
+        NewCookie authCookies = authService.getAuthCookies(storedCredentials);
         return Response.ok().cookie(authCookies).build();
     }
 

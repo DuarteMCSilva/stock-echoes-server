@@ -4,10 +4,12 @@ import com.stockechoes.api.auth.forms.RegisterForm;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.security.jpa.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @UserDefinition
@@ -16,9 +18,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "se_users")
 public class AuthCredentials extends PanacheEntity {
 
+    @Column(name="account_id")
+    public Long accountId;
+
     @Username
     private String username;
-
     private String email;
 
     @Password
@@ -26,12 +30,13 @@ public class AuthCredentials extends PanacheEntity {
     /// See how to hash password: https://quarkus.io/guides/security-jpa
 
     @Roles
-    private String role;
+    private Set<String> role;
 
-    public AuthCredentials(RegisterForm registerForm) {
+    public AuthCredentials(Long accountId, RegisterForm registerForm) {
+        this.accountId = accountId;
         this.username = registerForm.getUsername();
         this.email = registerForm.getEmail();
-        this.role = RolesEnum.USER.name();
+        this.role = Collections.singleton(RolesEnum.USER.name());
         this.setPassword(registerForm.getPassword());
     }
 
