@@ -22,12 +22,12 @@ public class CsvReaderService {
     @Inject
     TickerService tickerService;
 
-    public List<Transaction> getTransactionsFromCsv(InputStream stream, Long portfolioId ) {
+    public List<Transaction> getTransactionsFromCsv(InputStream stream, Portfolio portfolio ) {
         return getListFromCsv(stream).stream()
                 .filter( (tie) -> !tie.getIsin().trim().isEmpty())
                 .map((tie) -> {
                     tickerService.prepareTickerByIsin(tie.getIsin());
-                    return toEntity(tie, portfolioId);
+                    return toEntity(tie, portfolio);
                 }).toList();
     }
 
@@ -40,7 +40,7 @@ public class CsvReaderService {
         return csvToBean.parse();
     }
 
-    public Transaction toEntity(TransactionImportEntity dto, Long portfolioId) {
+    public Transaction toEntity(TransactionImportEntity dto, Portfolio portfolio) {
         Transaction tx = new Transaction();
         tx.setDate(dto.getDate());
         tx.setQuantity(dto.getQuantity());
@@ -49,8 +49,7 @@ public class CsvReaderService {
         Ticker tickerRef = this.em.getReference(Ticker.class, dto.getIsin());
         tx.setTicker(tickerRef);
         // Instead of loading Portfolio with find(), just create a proxy by id:
-        Portfolio portfolioRef = this.em.getReference(Portfolio.class, portfolioId);
-        tx.setPortfolio(portfolioRef);
+        tx.setPortfolio(portfolio);
         return tx;
     }
 }

@@ -21,10 +21,10 @@ public class TransactionsDao {
         return transactionsRepository.listAll();
     }
 
-    public List<HoldingDto> getHoldings(String portfolioId) {
+    public List<HoldingDto> getHoldings(Long portfolioId) {
         String statement = "SELECT ticker, " +
                 " SUM(quantity) as quantity, SUM(cost) as avgCost" + // TODO: Currently total cost, not avg!
-                " FROM transaction_table tr" +
+                " FROM se_transactions tr" +
                 " WHERE tr.portfolio.id = ?1 AND quantity > 0 " +
                 " GROUP BY ticker";
 

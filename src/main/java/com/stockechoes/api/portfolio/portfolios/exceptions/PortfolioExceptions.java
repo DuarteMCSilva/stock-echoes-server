@@ -10,7 +10,7 @@ public class PortfolioExceptions {
         private final Long portfolioId;
 
         public PortfolioNotFoundException(Long portfolioId) {
-            super(Response.Status.NOT_FOUND, "Portfolio not found.");
+            super(Response.Status.NOT_FOUND, "Portfolio not found in this account with id: " + portfolioId);
             this.portfolioId = portfolioId;
         }
     }

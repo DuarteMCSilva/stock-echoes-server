@@ -7,12 +7,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name="ticker_table")
 @Table(name="ticker_table")
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Ticker extends PanacheEntityBase {
 
     @Id

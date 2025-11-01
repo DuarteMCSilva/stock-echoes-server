@@ -1,17 +1,20 @@
 package com.stockechoes.api.accounts.customer;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
+@Table(name = "se_customers")
+@EqualsAndHashCode(callSuper = true)
 public class Customer extends PanacheEntityBase {
 
     @Id

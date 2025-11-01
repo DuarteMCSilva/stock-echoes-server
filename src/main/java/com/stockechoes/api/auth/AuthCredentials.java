@@ -6,6 +6,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.security.jpa.*;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.Collections;
@@ -15,7 +16,8 @@ import java.util.Set;
 @UserDefinition
 @NoArgsConstructor
 @Data
-@Table(name = "se_users")
+@Table(name = "se_credentials")
+@EqualsAndHashCode(callSuper = true)
 public class AuthCredentials extends PanacheEntity {
 
     @Column(name="account_id")

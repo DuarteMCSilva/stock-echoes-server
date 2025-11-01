@@ -1,11 +1,12 @@
 package com.stockechoes.api.accounts;
 
-import com.stockechoes.api.GenericApiException;
-import com.stockechoes.api.auth.AuthContext;
+import io.quarkus.arc.profile.IfBuildProfile;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
+
+import java.util.List;
 
 @Path("/account")
 public class AccountController {
@@ -14,18 +15,19 @@ public class AccountController {
     AccountRepository accountRepository;
 
     @Inject
-    AuthContext authContext;
+    AccountService accountService;
 
     @GET
     public Response getAccount() {
-        var sub = authContext.getAccountId();
+        Account account = accountService.getAccountFromContextOrThrow();
 
-        var accountOpt = accountRepository.findByIdOptional(sub);
+        return Response.ok().entity(account).build();
+    }
 
-        if(accountOpt.isEmpty()) {
-            throw new GenericApiException(Response.Status.NOT_FOUND, "No user account corresponds to authentication token");
-        }
-
-        return Response.ok().entity(accountOpt.get()).build();
+    @GET
+    @Path("/all")
+    @IfBuildProfile("dev") // TODO: ERASE - just for dev
+    public List<Account> all() {
+        return accountRepository.listAll();
     }
 }

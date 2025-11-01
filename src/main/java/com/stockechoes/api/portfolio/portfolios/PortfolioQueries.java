@@ -32,12 +32,12 @@ public class PortfolioQueries {
 
     @Query("transactions")
     public List<TransactionsDto> getTransactions(@Source Portfolio portfolio) {
-        return transactionsService.getPortfolioTransactions(portfolio.id, null);
+        return transactionsService.getPortfolioTransactions(portfolio.getId());
     }
 
     @Query("holdings")
     public List<HoldingDto> getHoldings(@Source Portfolio portfolio) {
-        return holdingsService.getCurrentHoldings(String.valueOf(portfolio.id));
+        return holdingsService.getCurrentHoldings(portfolio.getId());
     }
 
     @Mutation

@@ -12,7 +12,7 @@ public class PriceEntryDao {
         String statement =
                 "SELECT pe_table.date, pe_table.price " +
                         "FROM PriceEntry pe_table " +
-                        "JOIN ticker_table t_table ON pe_table.ticker.id = t_table.id " +
+                        "JOIN se_tickers t_table ON pe_table.ticker.id = t_table.id " +
                         "WHERE t_table.symbol = ?1 " +
                         "ORDER BY pe_table.date ASC";
 

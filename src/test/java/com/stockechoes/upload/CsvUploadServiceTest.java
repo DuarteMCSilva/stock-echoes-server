@@ -1,5 +1,6 @@
 package com.stockechoes.upload;
 
+import com.stockechoes.api.portfolio.portfolios.Portfolio;
 import com.stockechoes.api.portfolio.transactions.Transaction;
 import com.stockechoes.services.utility.csv.CsvReaderService;
 import com.stockechoes.services.utility.csv.TransactionImportEntity;
@@ -38,17 +39,17 @@ public class CsvUploadServiceTest {
 
     @Test
     @TestTransaction
-    @DisplayName("getAll should return all users mapped to WorkationDto")
+    @DisplayName("should convert TransactionImportEntity into Transaction")
     void converter() {
         TransactionImportEntity transactionImportEntity = getMockTransaction();
 
-        Transaction transaction = csvReaderService.toEntity(transactionImportEntity, 10001L);
+        Transaction transaction = csvReaderService.toEntity(transactionImportEntity, Portfolio.findById(10001L));
 
         assertEquals(10, transaction.getQuantity());
         assertEquals(BigDecimal.valueOf(331.00), transaction.getCost());
 
         assertEquals("USisin", transaction.getTicker().getIsin());
-        assertEquals("my-portfolio", transaction.getPortfolio().getName());
+        assertEquals("Royal Catin", transaction.getPortfolio().getName());
     }
 
     private TransactionImportEntity getMockTransaction() {

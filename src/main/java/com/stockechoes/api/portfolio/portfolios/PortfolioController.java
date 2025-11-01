@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -18,22 +19,23 @@ public class PortfolioController {
     @Inject
     PortfolioRepository portfolioRepository;
 
-    @GET
-    public List<Portfolio> getAll() {
-        return portfolioRepository.listAll();
-    }
+    @Inject
+    PortfolioService portfolioService;
 
     @GET
-    @Path("{id}")
-    public Portfolio getPortfolioById(@PathParam("id") Long id) {
-        return portfolioRepository.findById(id);
+    public Response getAccountPortfolios() {
+        List<Portfolio> portfolioList = portfolioService.getAccountPortfolios();
+        return Response.status(Response.Status.OK).entity(portfolioList).build();
     }
 
     @POST
     @Transactional
     @Path("/create")
-    public Long postPortfolio(@QueryParam("name") String name) {
-        //TODO: make with body, and more params.
-        return portfolioRepository.createPortfolio(name);
+    public Response postPortfolio(@QueryParam("name") String name) {
+        Portfolio portfolio = new Portfolio(name);
+
+        portfolioService.savePortfolioWithoutDuplicates(portfolio);
+
+        return Response.status(Response.Status.CREATED).build();
     }
 }

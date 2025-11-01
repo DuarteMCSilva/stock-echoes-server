@@ -3,12 +3,11 @@ package com.stockechoes.api.portfolio.portfolios;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.util.Optional;
+
 @ApplicationScoped
 public class PortfolioRepository implements PanacheRepository<Portfolio> {
-
-    public Long createPortfolio(String name) {
-        Portfolio portfolio = new Portfolio(name);
-        persist(portfolio);
-        return portfolio.id;
+    public Optional<Portfolio> findDuplicateOptional(String name, Long accountId) {
+        return find("name = ?1 AND account.id = ?2", name, accountId).firstResultOptional();
     }
 }

@@ -19,7 +19,7 @@ public class HoldingsResource {
     
     @GET
     public SequencedCollection<HoldingDto> getHoldings(
-            @QueryParam("portfolio") String portfolioId
+            @QueryParam("portfolio") Long portfolioId
     ) {
         return holdingsService.getCurrentHoldings(portfolioId);
     }
