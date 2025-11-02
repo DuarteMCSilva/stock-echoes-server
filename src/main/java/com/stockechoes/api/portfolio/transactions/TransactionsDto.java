@@ -1,7 +1,7 @@
 package com.stockechoes.api.portfolio.transactions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.stockechoes.api.portfolio.tickers.Ticker;
+import com.stockechoes.api.market.tickers.Ticker;
 import lombok.Data;
 
 import java.math.BigDecimal;

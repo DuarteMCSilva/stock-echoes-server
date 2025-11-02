@@ -1,4 +1,4 @@
-package com.stockechoes.api.portfolio.tickers;
+package com.stockechoes.api.market.tickers;
 
 import lombok.Data;
 

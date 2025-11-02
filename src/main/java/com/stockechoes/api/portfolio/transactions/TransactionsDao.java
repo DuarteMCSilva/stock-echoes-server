@@ -1,7 +1,7 @@
 package com.stockechoes.api.portfolio.transactions;
 
 import com.stockechoes.api.portfolio.holdings.HoldingDto;
-import com.stockechoes.api.portfolio.tickers.Ticker;
+import com.stockechoes.api.market.tickers.Ticker;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @ApplicationScoped
 public class TransactionsDao {
 
-    // see CriteriaQuery to build queries
+    // TODO: see CriteriaQuery to build queries
 
     @Inject
     @SuppressWarnings("unused")

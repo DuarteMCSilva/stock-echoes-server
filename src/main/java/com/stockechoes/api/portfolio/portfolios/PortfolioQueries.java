@@ -43,6 +43,7 @@ public class PortfolioQueries {
     @Mutation
     @Transactional
     public Long createPortfolio(Portfolio portfolio){
-        return portfolioRepository.createPortfolio(portfolio.getName());
+        portfolioRepository.persist(portfolio);
+        return portfolio.getId();
     }
 }

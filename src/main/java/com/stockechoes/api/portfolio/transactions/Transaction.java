@@ -1,7 +1,7 @@
 package com.stockechoes.api.portfolio.transactions;
 
 import com.stockechoes.api.portfolio.portfolios.Portfolio;
-import com.stockechoes.api.portfolio.tickers.Ticker;
+import com.stockechoes.api.market.tickers.Ticker;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 import lombok.Data;

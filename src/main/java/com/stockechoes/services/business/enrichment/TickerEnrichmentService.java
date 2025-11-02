@@ -1,6 +1,6 @@
 package com.stockechoes.services.business.enrichment;
 
-import com.stockechoes.api.portfolio.tickers.TickerService;
+import com.stockechoes.api.market.tickers.TickerService;
 import com.stockechoes.services.business.isin.IsinRecord;
 import com.stockechoes.services.business.isin.IsinRecordService;
 import com.stockechoes.services.utility.eventBuffer.EventBuffer;

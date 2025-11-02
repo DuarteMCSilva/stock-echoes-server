@@ -1,6 +1,6 @@
 package com.stockechoes.api.market.prices;
 
-import com.stockechoes.api.portfolio.tickers.Ticker;
+import com.stockechoes.api.market.tickers.Ticker;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

@@ -1,4 +1,4 @@
-package com.stockechoes.api.portfolio.tickers;
+package com.stockechoes.api.market.tickers;
 
 import com.stockechoes.services.business.isin.IsinRecord;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
