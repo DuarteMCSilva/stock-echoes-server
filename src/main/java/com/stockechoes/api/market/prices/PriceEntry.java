@@ -7,12 +7,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name="price_entry")
+@EqualsAndHashCode(callSuper = true)
 public class PriceEntry extends PanacheEntity {
 
     private float price;

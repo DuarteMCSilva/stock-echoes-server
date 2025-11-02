@@ -5,16 +5,20 @@ import com.stockechoes.api.portfolio.tickers.Ticker;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-@Entity(name = "transaction_table")
-@Table(name = "transaction_table")
+@ToString(exclude = {"ticker", "portfolio"})
+@Entity(name = "se_transactions")
+@Table(name = "se_transactions")
+@EqualsAndHashCode(callSuper = true)
 public class Transaction extends PanacheEntity {
-    @ManyToOne
-    @JoinColumn(name="portfolio_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name="portfolio_id", nullable = false)
     private Portfolio portfolio;
 
     private LocalDate date;

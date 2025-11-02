@@ -1,6 +1,5 @@
 package com.stockechoes.api.portfolio.portfolios;
 
-import com.stockechoes.api.auth.AuthContext;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -16,8 +15,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @SuppressWarnings("unused")
 public class PortfolioController {
-    @Inject
-    AuthContext authContext;
 
     @Inject
     PortfolioRepository portfolioRepository;
@@ -26,8 +23,9 @@ public class PortfolioController {
     PortfolioService portfolioService;
 
     @GET
-    public List<Portfolio> getAccountPortfolios() {
-        return portfolioService.getPortfoliosByAccount(authContext.getAccountId());
+    public Response getAccountPortfolios() {
+        List<Portfolio> portfolioList = portfolioService.getAccountPortfolios();
+        return Response.status(Response.Status.OK).entity(portfolioList).build();
     }
 
     @POST
@@ -35,7 +33,6 @@ public class PortfolioController {
     @Path("/create")
     public Response postPortfolio(@QueryParam("name") String name) {
         Portfolio portfolio = new Portfolio(name);
-        portfolio.setAccountId(authContext.getAccountId());
 
         portfolioService.savePortfolioWithoutDuplicates(portfolio);
 

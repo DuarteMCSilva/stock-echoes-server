@@ -8,6 +8,6 @@ import java.util.Optional;
 @ApplicationScoped
 public class PortfolioRepository implements PanacheRepository<Portfolio> {
     public Optional<Portfolio> findDuplicateOptional(String name, Long accountId) {
-        return find("name = ?1 AND accountId = ?2", name, accountId).firstResultOptional();
+        return find("name = ?1 AND account.id = ?2", name, accountId).firstResultOptional();
     }
 }

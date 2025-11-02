@@ -1,5 +1,6 @@
 package com.stockechoes.api.portfolio.transactions;
 
+import io.quarkus.arc.profile.IfBuildProfile;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -26,18 +27,12 @@ public class TransactionsController {
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<TransactionsDto> getAllTransactionsByTicker(
-            @QueryParam("portfolio") Long portfolioId,
-            @QueryParam("ticker") String ticker
+    public List<TransactionsDto> getAllTransactions(
+            @QueryParam("portfolio") Long portfolioId
     ) {
-        return transactionsService.getPortfolioTransactions(portfolioId, ticker);
-    }
 
-    @GET
-    @Path("all") // TODO: ERASE - No use case, only debugging.
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<TransactionsDto> getAllTransactions() {
-        return transactionsDao.getTransactions().stream().map(TransactionsDto::new).toList();
+
+        return transactionsService.getPortfolioTransactions(portfolioId);
     }
 
 
@@ -57,5 +52,13 @@ public class TransactionsController {
         List<Transaction> imported = transactionsService.postTransactionHistory(inputStream, portfolioId);
         inputStream.close();
         return Response.ok("Lines saved: " + imported.size()).build();
+    }
+
+    @GET
+    @Path("all")
+    @IfBuildProfile("dev") // TODO: ERASE - No use case, only debugging.
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<TransactionsDto> getAllTransactions() {
+        return transactionsDao.getTransactions().stream().map(TransactionsDto::new).toList();
     }
 }
