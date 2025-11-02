@@ -1,7 +1,7 @@
 package com.stockechoes.api.portfolio.holdings;
 
-import com.stockechoes.api.portfolio.tickers.Ticker;
-import com.stockechoes.api.portfolio.tickers.TickerDto;
+import com.stockechoes.api.market.tickers.Ticker;
+import com.stockechoes.api.market.tickers.TickerDto;
 import lombok.Data;
 
 import java.math.BigDecimal;

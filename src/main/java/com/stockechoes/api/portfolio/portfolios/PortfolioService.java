@@ -45,7 +45,6 @@ public class PortfolioService {
         portfolioRepository.persist(portfolio);
     }
 
-
     private void assertDuplicatePortfolio(Portfolio portfolio) {
         if(portfolioRepository.findDuplicateOptional(portfolio.getName(), portfolio.getAccount().getId()).isPresent()) {
             throw new GenericApiException(Response.Status.CONFLICT, "Duplicate portfolio, please choose another name");

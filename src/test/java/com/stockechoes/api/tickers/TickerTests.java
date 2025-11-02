@@ -1,7 +1,7 @@
 package com.stockechoes.api.tickers;
 
-import com.stockechoes.api.portfolio.tickers.Ticker;
-import com.stockechoes.api.portfolio.tickers.TickerRepository;
+import com.stockechoes.api.market.tickers.Ticker;
+import com.stockechoes.api.market.tickers.TickerRepository;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
