@@ -15,7 +15,7 @@ public class AccountService {
     @Inject
     AuthContext authContext;
 
-    public Account getAccountFromContextOrThrow() throws GenericApiException {
+    public Account getAccountFromContextOrThrow() {
         Long accountId = authContext.getAccountId();
 
         if(accountId == null) {
