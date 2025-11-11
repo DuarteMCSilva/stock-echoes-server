@@ -11,8 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name="ticker_table")
-@Table(name="ticker_table")
+@Entity(name="se_tickers")
+@Table(name="se_tickers")
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Ticker extends PanacheEntityBase {

@@ -12,15 +12,15 @@ import java.util.SequencedCollection;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 //@RolesAllowed({"user"}) // TODO: Reactivate when relevant
-public class HoldingsResource {
+public class HoldingController {
     
     @Inject
-    HoldingsService holdingsService;
+    HoldingService holdingService;
     
     @GET
     public SequencedCollection<HoldingDto> getHoldings(
             @QueryParam("portfolio") Long portfolioId
     ) {
-        return holdingsService.getCurrentHoldings(portfolioId);
+        return holdingService.getCurrentHoldings(portfolioId);
     }
 }

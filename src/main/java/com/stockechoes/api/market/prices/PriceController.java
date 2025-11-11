@@ -11,7 +11,7 @@ import java.util.List;
 @Path("/price")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PriceResource {
+public class PriceController {
 
     @Inject
     PriceService priceService;

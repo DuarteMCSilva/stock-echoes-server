@@ -9,7 +9,7 @@ import jakarta.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
-public class HoldingsService {
+public class HoldingService {
 
     @Inject
     TransactionsDao transactionsDao;
