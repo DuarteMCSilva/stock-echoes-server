@@ -20,6 +20,9 @@ jobs:
           java-version: 21
           distribution: temurin
           cache: maven
-
+      - name: Write private key
+        run: |
+          mkdir META-INF
+          echo "${JWT_PUBLIC_KEY}" > META-INF/publicKey.pem
       - name: Build
         run: ./mvnw verify -B
