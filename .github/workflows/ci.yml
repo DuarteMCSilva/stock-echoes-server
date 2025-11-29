@@ -21,6 +21,6 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Write private key
-        run: echo "${JWT_PUBLIC_KEY}" > publicKey.pem
+        run: echo "${JWT_PUBLIC_KEY}" > META-INF/publicKey.pem
       - name: Build
         run: ./mvnw verify -B
