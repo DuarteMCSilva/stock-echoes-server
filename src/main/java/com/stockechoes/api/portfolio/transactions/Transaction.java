@@ -1,5 +1,6 @@
 package com.stockechoes.api.portfolio.transactions;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.stockechoes.api.portfolio.portfolios.Portfolio;
 import com.stockechoes.api.market.tickers.Ticker;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -17,6 +18,8 @@ import java.time.LocalDate;
 @Table(name = "se_transactions")
 @EqualsAndHashCode(callSuper = true)
 public class Transaction extends PanacheEntity {
+
+    @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name="portfolio_id", nullable = false)
     private Portfolio portfolio;
