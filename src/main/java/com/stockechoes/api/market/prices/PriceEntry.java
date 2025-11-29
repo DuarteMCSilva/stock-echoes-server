@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name="price_entry")
+@Table(name="se_prices")
 @EqualsAndHashCode(callSuper = true)
 public class PriceEntry extends PanacheEntity {
 

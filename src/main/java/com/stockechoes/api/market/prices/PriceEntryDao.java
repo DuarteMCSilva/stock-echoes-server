@@ -10,11 +10,11 @@ public class PriceEntryDao {
 
     public List<PriceEntryDto> getPricesByTicker(String symbol) {
         String statement =
-                "SELECT pe_table.date, pe_table.price " +
-                        "FROM PriceEntry pe_table " +
-                        "JOIN se_tickers t_table ON pe_table.ticker.id = t_table.id " +
+                "SELECT se_prices.date, se_prices.price " +
+                        "FROM se_prices " +
+                        "JOIN se_tickers t_table ON se_prices.ticker.id = t_table.id " +
                         "WHERE t_table.symbol = ?1 " +
-                        "ORDER BY pe_table.date ASC";
+                        "ORDER BY se_prices.date ASC";
 
         return PriceEntry.find(statement, symbol)
                 .project(List.class).stream()

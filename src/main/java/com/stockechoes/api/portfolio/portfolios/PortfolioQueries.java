@@ -1,8 +1,10 @@
 package com.stockechoes.api.portfolio.portfolios;
 
+import com.stockechoes.api.accounts.Account;
+import com.stockechoes.api.accounts.AccountService;
 import com.stockechoes.api.portfolio.holdings.HoldingDto;
 import com.stockechoes.api.portfolio.transactions.TransactionsDto;
-import com.stockechoes.api.portfolio.holdings.HoldingsService;
+import com.stockechoes.api.portfolio.holdings.HoldingService;
 import com.stockechoes.api.portfolio.transactions.TransactionsService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -10,7 +12,7 @@ import org.eclipse.microprofile.graphql.*;
 
 import java.util.List;
 
-@GraphQLApi()
+@GraphQLApi
 @SuppressWarnings("unused")
 public class PortfolioQueries {
 
@@ -20,10 +22,26 @@ public class PortfolioQueries {
     TransactionsService transactionsService;
 
     @Inject
-    HoldingsService holdingsService;
+    HoldingService holdingService;
 
     @Inject
     PortfolioRepository portfolioRepository;
+
+    @Inject
+    PortfolioService portfolioService;
+
+    @Inject
+    AccountService accountService;
+
+    @Query("account")
+    public Account getAccount() {
+        return accountService.getAccountFromContextOrThrow();
+    }
+
+    @Query("portfolios")
+    public List<Portfolio> getPortfolios() {
+        return portfolioService.getAccountPortfolios();
+    }
 
     @Query("portfolio")
     public Portfolio getPortfolio(@Name("id") Long id) {
@@ -37,7 +55,7 @@ public class PortfolioQueries {
 
     @Query("holdings")
     public List<HoldingDto> getHoldings(@Source Portfolio portfolio) {
-        return holdingsService.getCurrentHoldings(portfolio.getId());
+        return holdingService.getCurrentHoldings(portfolio.getId());
     }
 
     @Mutation

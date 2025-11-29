@@ -29,3 +29,7 @@ INSERT INTO se_transactions (id, cost, date, quantity, portfolio_id, isin) VALUE
 (10005, 250.80, '2024-02-22',  18, 10001, 'US2'),
 (10006, 175.99, '2024-02-23',  11, 10001, 'US1'),
 (10007, 130.45, '2024-02-24',  -9, 10001, 'US2');
+
+INSERT INTO se_prices (id, date, ticker_id, price) values
+(1, '2024-01-01', 'US1', 5.10 ),
+(2, '2024-01-30', 'US1', 6.05 );
