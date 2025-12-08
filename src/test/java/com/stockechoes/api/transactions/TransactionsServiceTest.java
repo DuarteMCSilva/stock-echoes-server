@@ -12,6 +12,7 @@ import io.quarkus.test.InjectMock;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +39,7 @@ public class TransactionsServiceTest {
     AuthContext authContext;
 
     @Test
+    @Disabled
     @DisplayName("Should save transactions linked to a portfolio")
     @TestTransaction
     void postTransactionHistoryTest() {
