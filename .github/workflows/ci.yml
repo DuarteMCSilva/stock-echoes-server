@@ -11,6 +11,7 @@ on:
 env:
   REGION: europe-central2
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,6 +35,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Log
+        run: |
+          echo "sha: ${github.sha}"
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v3'
@@ -46,3 +50,11 @@ jobs:
           registry: 'gcr.io'
           username: '_json_key'
           password: '${{ secrets.GCP_CLOUD_RUNNER_CREDENTIALS }}'
+      - name: Build, tag and push container
+        id: build-image
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{ vars.code_directory }}
+          push: true
+          tags: |
+            gcr.io/stock-echoes-gcp/stock-echoes-server:${{ github.sha }}
