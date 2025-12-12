@@ -34,9 +34,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Log
-        run: |
-          echo "${env.GITHUB_RUN_NUMBER}"
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v3'
@@ -56,4 +53,4 @@ jobs:
           context: ${{ vars.code_directory }}
           push: true
           tags: |
-            gcr.io/stock-echoes-gcp/stock-echoes-server:${{env.GITHUB_REF_NAME}}-${{env.GITHUB_RUN_NUMBER}}
+            gcr.io/stock-echoes-gcp/stock-echoes-server:${{env.GITHUB_REF_NAME}}
