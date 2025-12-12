@@ -57,4 +57,4 @@ jobs:
           context: ${{ vars.code_directory }}
           push: true
           tags: |
-            gcr.io/stock-echoes-gcp/stock-echoes-server:${{GITHUB_REF_NAME}}-${{GITHUB_RUN_NUMBER}}
+            gcr.io/stock-echoes-gcp/stock-echoes-server:${{env.GITHUB_REF_NAME}}-${{env.GITHUB_RUN_NUMBER}}
