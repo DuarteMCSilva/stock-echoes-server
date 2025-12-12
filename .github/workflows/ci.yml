@@ -59,6 +59,10 @@ jobs:
           push: true
           tags: |
             gcr.io/stock-echoes-gcp/stock-echoes-server:latest
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+    steps:
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v3'
