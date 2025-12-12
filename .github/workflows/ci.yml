@@ -11,6 +11,8 @@ on:
 env:
   REGION: europe-central2
   SERVICE: stock-echoes-server
+  PROJECT_ID: stock-echoes-gcp
+  IMAGE_TAG: gcr.io/stock-echoes-gcp/stock-echoes-server:latest
 
 jobs:
   build:
@@ -57,8 +59,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            gcr.io/stock-echoes-gcp/stock-echoes-server:latest
+          tags: '${{ env.IMAGE_TAG }}'
   deploy:
     runs-on: ubuntu-latest
     needs: publish
@@ -72,7 +73,7 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v3
         with:
-          service: ${{ env.SERVICE }}
-          region: ${{ env.REGION }}
-          project_id: stock-echoes-gcp
-          image: gcr.io/stock-echoes-gcp/stock-echoes-server:latest
+          service: '${{ env.SERVICE }}'
+          region: '${{ env.REGION }}'
+          project_id: '${{ env.PROJECT_ID }}'
+          image: '${{ env.IMAGE_TAG }}'
