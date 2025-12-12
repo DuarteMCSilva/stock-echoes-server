@@ -41,8 +41,8 @@ jobs:
           credentials_json: '${{ secrets.GCP_CLOUD_RUNNER_CREDENTIALS }}'
       - name: Docker Auth
         id: docker-auth
-        uses: 'docker/login-action@v1'
+        uses: 'docker/login-action@v3'
         with:
+          registry: 'gcr.io'
           username: 'oauth2accesstoken'
           password: '${{ steps.auth.outputs.access_token }}'
-          registry: '${{ env.REGION }}-docker.pkg.dev'
