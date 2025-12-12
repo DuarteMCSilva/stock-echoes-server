@@ -65,4 +65,5 @@ jobs:
         with:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
+          project_id: stock-echoes-gcp
           image: gcr.io/stock-echoes-gcp/stock-echoes-server:latest
