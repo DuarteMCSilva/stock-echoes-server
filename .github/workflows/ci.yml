@@ -28,8 +28,8 @@ jobs:
           mkdir META-INF
           echo "${JWT_PUBLIC_KEY}" > META-INF/publicKey.pem
       - name: Build
-        run: ./mvnw verify -B
-      - name: Google Auth
+        run: ./mvnw clean package
+      - name: Google Auth (Remove?)
         id: auth
         uses: 'google-github-actions/auth@v3'
         with:
