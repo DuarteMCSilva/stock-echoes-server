@@ -10,6 +10,7 @@ on:
 
 env:
   REGION: europe-central2
+  IMAGE_ID: "${GITHUB_REF_NAME}-${GITHUB_RUN_NUMBER}"
 
 
 jobs:
@@ -57,4 +58,4 @@ jobs:
           context: ${{ vars.code_directory }}
           push: true
           tags: |
-            gcr.io/stock-echoes-gcp/stock-echoes-server:${{ github.sha }}
+            gcr.io/stock-echoes-gcp/stock-echoes-server:${{ IMAGE_ID }}
