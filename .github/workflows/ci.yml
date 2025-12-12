@@ -10,7 +10,7 @@ on:
 
 env:
   REGION: europe-central2
-  IMAGE_ID: ${{GITHUB_REF_NAME}}-${{GITHUB_RUN_NUMBER}}
+  IMAGE_ID:
 
 jobs:
   build:
@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Log
         run: |
-          echo "${env.IMAGE_ID}"
+          echo "${${{GITHUB_REF_NAME}}-${{GITHUB_RUN_NUMBER}}}"
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v3'
