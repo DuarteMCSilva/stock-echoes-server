@@ -10,7 +10,7 @@ on:
 
 env:
   REGION: europe-central2
-  IMAGE_ID: ${{env.GITHUB_REF_NAME}}-${{env.GITHUB_RUN_NUMBER}}
+  IMAGE_ID: ${{GITHUB_REF_NAME}}-${{GITHUB_RUN_NUMBER}}
 
 jobs:
   build:
