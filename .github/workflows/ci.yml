@@ -4,7 +4,7 @@ name: CI build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, pipeline-develop ]
   pull_request:
     branches: [ main ]
 
@@ -26,3 +26,13 @@ jobs:
           echo "${JWT_PUBLIC_KEY}" > META-INF/publicKey.pem
       - name: Build
         run: ./mvnw verify -B
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v3'
+        with:
+          credentials_json: '${{ secrets.GCP_CLOUD_RUNNER_CREDENTIALS }}'
