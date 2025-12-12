@@ -45,7 +45,7 @@ jobs:
         id: build-image
         uses: docker/build-push-action@v3
         with:
-          context: ${{ vars.code_directory }}
+          context: .
           push: true
           tags: |
             gcr.io/stock-echoes-gcp/stock-echoes-server:latest
