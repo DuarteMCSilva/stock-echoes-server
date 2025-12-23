@@ -68,3 +68,19 @@ To add an extension, you can write the command:
 Easily start your REST Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+
+### Development
+
+Build image locally
+
+```shell script
+./mvnw -DskipTests clean package
+```
+
+```shell script
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/stock-echoes-server-jvm .
+```
+
+```shell script
+docker run -i --rm -p 8080:8080 quarkus/stock-echoes-server-jvm
+```
