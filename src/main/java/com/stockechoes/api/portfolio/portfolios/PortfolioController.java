@@ -1,8 +1,8 @@
 package com.stockechoes.api.portfolio.portfolios;
 
+import com.stockechoes.api.portfolio.portfolios.dto.PortfolioDto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -29,13 +29,12 @@ public class PortfolioController {
     }
 
     @POST
-    @Transactional
     @Path("/create")
-    public Response postPortfolio(@QueryParam("name") String name) {
-        Portfolio portfolio = new Portfolio(name);
-
-        portfolioService.savePortfolioWithoutDuplicates(portfolio);
-
-        return Response.status(Response.Status.CREATED).build();
+    public Response postPortfolio(PortfolioDto portfolioForm) {
+        Portfolio portfolio = new Portfolio(portfolioForm.getName());
+        PortfolioDto portfolioDto = portfolioService.savePortfolioWithoutDuplicates(portfolio);
+        return Response.status(Response.Status.CREATED)
+                .entity(portfolioDto)
+                .build();
     }
 }
