@@ -3,9 +3,11 @@ package com.stockechoes.api.portfolio.portfolios;
 import com.stockechoes.api.GenericApiException;
 import com.stockechoes.api.accounts.Account;
 import com.stockechoes.api.accounts.AccountService;
+import com.stockechoes.api.portfolio.portfolios.dto.PortfolioDto;
 import com.stockechoes.api.portfolio.portfolios.exceptions.PortfolioExceptions.PortfolioNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
@@ -36,12 +38,18 @@ public class PortfolioService {
         return account.getPortfolios();
     }
 
-    public void savePortfolioWithoutDuplicates(Portfolio portfolio) {
+    public PortfolioDto savePortfolioWithoutDuplicates(Portfolio portfolio) {
         Account account = accountService.getAccountFromContextOrThrow();
         portfolio.setAccount(account);
 
         assertDuplicatePortfolio(portfolio);
 
+        savePortfolio(portfolio);
+        return new PortfolioDto(portfolio);
+    }
+
+    @Transactional
+    public void savePortfolio(Portfolio portfolio) {
         portfolioRepository.persist(portfolio);
     }
 
