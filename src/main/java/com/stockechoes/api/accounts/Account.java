@@ -47,4 +47,12 @@ public class Account extends PanacheEntityBase {
     public String toString() {
         return "Account{id=" + id + ", email='" + email + ", owner= '"+ owner.toString() + "}";
     }
+
+    public AccountDto toDto() {
+        var dto = new AccountDto();
+        dto.setCustomer(this.getOwner());
+        dto.setEmail(this.getEmail());
+        dto.setPortfolios(this.getPortfolios());
+        return dto;
+    }
 }
