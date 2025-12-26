@@ -25,4 +25,9 @@ public class AccountService {
         return accountRepository.findByIdOptional(accountId)
                 .orElseThrow( () -> new GenericApiException(Response.Status.BAD_REQUEST, "No account found for a given id"));
     }
+
+    public AccountDto getAccountDetails() {
+        Account account = this.getAccountFromContextOrThrow();
+        return account.toDto();
+    }
 }

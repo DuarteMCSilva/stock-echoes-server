@@ -19,7 +19,7 @@ public class AccountController {
 
     @GET
     public Response getAccount() {
-        Account account = accountService.getAccountFromContextOrThrow();
+        AccountDto account = accountService.getAccountDetails();
 
         return Response.ok().entity(account).build();
     }
