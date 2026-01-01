@@ -2,24 +2,20 @@ package com.stockechoes.api.market.prices;
 
 import com.stockechoes.api.market.prices.dto.IntradayPriceDto;
 import com.stockechoes.api.market.prices.dto.IntradayPriceForm;
-import com.stockechoes.services.api.WebScrapperService;
+import com.stockechoes.rest.yfinance.YFinanceService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.List;
 
 @ApplicationScoped
 public class PriceService {
 
-    @ConfigProperty(name = "stock-echoes.scrapper.url")
-    String webScrapperUrl;
-
     @Inject
     PriceEntryDao priceEntryDao;
 
     @Inject
-    WebScrapperService webScrapperService;
+    YFinanceService YFinanceService;
 
     public List<PriceEntryDto> getPricesByTicker(String symbol) {
         List<PriceEntryDto> results = priceEntryDao.getPricesByTicker(symbol).stream().toList();
@@ -32,7 +28,7 @@ public class PriceService {
     }
 
     public List<PriceEntryDto> getPricesByTickerFromWeb(String symbol) {
-        return webScrapperService.fetchPriceHistory(symbol, "1y");
+        return YFinanceService.fetchPriceHistory(symbol, "1y");
     }
 
     public List<IntradayPriceDto> getEodPricesForTickerList(IntradayPriceForm body) {
@@ -41,6 +37,6 @@ public class PriceService {
             return List.of();
         }
 
-        return webScrapperService.fetchEodPrices(body.getTickers());
+        return YFinanceService.fetchEodPrices(body.getTickers());
     }
 }
