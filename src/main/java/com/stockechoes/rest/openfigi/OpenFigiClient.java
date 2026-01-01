@@ -9,7 +9,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import java.util.List;
 
-@RegisterRestClient(baseUri = "https://api.openfigi.com/v3/mapping")
+@RegisterRestClient(configKey = "openfigi")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface OpenFigiClient {
