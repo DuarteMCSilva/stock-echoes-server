@@ -1,6 +1,7 @@
 package com.stockechoes.services.api;
 
 import com.stockechoes.api.market.prices.PriceEntryDto;
+import com.stockechoes.api.market.prices.dto.IntradayPriceDto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -25,6 +26,14 @@ public class WebScrapperService {
         String responseBody = executeAndCatchRequest(url);
 
         return listFromJson(responseBody, PriceEntryDto.class);
+    }
+
+    public List<IntradayPriceDto> fetchEodPrices(List<String> tickers) {
+        String url = webScrapperUrl + "/last-prices" +
+                "?tickers=" + String.join(",", tickers);
+        String responseBody = executeAndCatchRequest(url);
+
+        return listFromJson(responseBody, IntradayPriceDto.class);
     }
 
     private String executeAndCatchRequest(String url) {

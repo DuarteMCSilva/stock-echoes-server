@@ -1,5 +1,7 @@
 package com.stockechoes.api.market.prices;
 
+import com.stockechoes.api.market.prices.dto.IntradayPriceDto;
+import com.stockechoes.api.market.prices.dto.IntradayPriceForm;
 import com.stockechoes.services.api.WebScrapperService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -31,5 +33,14 @@ public class PriceService {
 
     public List<PriceEntryDto> getPricesByTickerFromWeb(String symbol) {
         return webScrapperService.fetchPriceHistory(symbol, "1y");
+    }
+
+    public List<IntradayPriceDto> getEodPricesForTickerList(IntradayPriceForm body) {
+
+        if(body.getTickers().isEmpty()) {
+            return List.of();
+        }
+
+        return webScrapperService.fetchEodPrices(body.getTickers());
     }
 }

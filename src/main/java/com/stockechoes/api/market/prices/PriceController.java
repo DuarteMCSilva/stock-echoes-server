@@ -1,9 +1,11 @@
 package com.stockechoes.api.market.prices;
 
+import com.stockechoes.api.market.prices.dto.IntradayPriceForm;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -26,5 +28,12 @@ public class PriceController {
     @Path("/web/{symbol}")
     public List<PriceEntryDto> getPricesByTickerFromWeb(@PathParam("symbol") String symbol) {
         return priceService.getPricesByTickerFromWeb(symbol);
+    }
+
+    @GET
+    @Path("/web/eod")
+    public Response getEodPricesForTickerList(IntradayPriceForm body) {
+        var prices = priceService.getEodPricesForTickerList(body);
+        return Response.ok().entity(prices).build();
     }
 }
