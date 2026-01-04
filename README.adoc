@@ -1,0 +1,34 @@
+= Stock Echoes Server
+:sectnums:
+:toc:
+
+
+== Overview
+The api specification can be consulted here:
+https://duartemcsilva.github.io/stock-echoes-server/
+
+== How to run locally:
+=== Development
+
+[source,shell script]
+----
+  ./mvnw quarkus:dev -DskipTests -Ddebug
+----
+
+=== Build image locally
+
+[source,shell script]
+----
+./mvnw -DskipTests clean package
+----
+
+[source,shell script]
+----
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/stock-echoes-server-jvm .
+----
+
+[source,shell script]
+----
+docker run -i --rm -p 8080:8080 quarkus/stock-echoes-server-jvm
+----
+

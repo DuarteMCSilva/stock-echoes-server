@@ -1,0 +1,529 @@
+{
+  "openapi" : "3.1.0",
+  "paths" : {
+    "/account" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get Account",
+        "tags" : [ "Account Controller" ]
+      }
+    },
+    "/account/all" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Account"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "All",
+        "tags" : [ "Account Controller" ]
+      }
+    },
+    "/auth/login" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AuthCredentialsForm"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Login",
+        "tags" : [ "Auth Controller" ]
+      }
+    },
+    "/auth/register" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RegisterForm"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Register",
+        "tags" : [ "Auth Controller" ]
+      }
+    },
+    "/hello" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Hello",
+        "tags" : [ "Greeting Resource" ]
+      }
+    },
+    "/holdings" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "portfolio",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SequencedCollectionHoldingDto"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Holdings",
+        "tags" : [ "Holding Controller" ]
+      }
+    },
+    "/portfolio" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get Account Portfolios",
+        "tags" : [ "Portfolio Controller" ]
+      }
+    },
+    "/portfolio/create" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PortfolioDto"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Post Portfolio",
+        "tags" : [ "Portfolio Controller" ]
+      }
+    },
+    "/price/web/eod" : {
+      "get" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/IntradayPriceForm"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Get Eod Prices For Ticker List",
+        "tags" : [ "Price Controller" ]
+      }
+    },
+    "/price/web/{symbol}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "symbol",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/PriceEntryDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Prices By Ticker From Web",
+        "tags" : [ "Price Controller" ]
+      }
+    },
+    "/price/{symbol}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "symbol",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/PriceEntryDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Prices By Ticker",
+        "tags" : [ "Price Controller" ]
+      }
+    },
+    "/tickers" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Ticker"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Tickers",
+        "tags" : [ "Ticker Controller" ]
+      }
+    },
+    "/transactions" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "portfolio",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/TransactionsDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Transactions",
+        "tags" : [ "Transactions Controller" ]
+      }
+    },
+    "/transactions/all" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/TransactionsDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get All Transactions",
+        "tags" : [ "Transactions Controller" ]
+      }
+    },
+    "/transactions/upload" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "portfolioId" : {
+                    "type" : "integer",
+                    "format" : "int64"
+                  }
+                }
+              },
+              "encoding" : {
+                "file" : {
+                  "contentType" : "application/octet-stream"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "summary" : "Save Transaction History",
+        "tags" : [ "Transactions Controller" ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Account" : {
+        "type" : "object",
+        "properties" : {
+          "owner" : {
+            "$ref" : "#/components/schemas/Customer"
+          },
+          "email" : {
+            "type" : "string"
+          }
+        }
+      },
+      "AuthCredentialsForm" : {
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Customer" : {
+        "type" : "object",
+        "properties" : {
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "HoldingDto" : {
+        "type" : "object",
+        "properties" : {
+          "quantity" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "avgCost" : {
+            "type" : "number"
+          },
+          "ticker" : {
+            "$ref" : "#/components/schemas/TickerDto"
+          }
+        }
+      },
+      "IntradayPriceForm" : {
+        "type" : "object",
+        "properties" : {
+          "tickers" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "LocalDate" : {
+        "type" : "string",
+        "format" : "date",
+        "examples" : [ "2022-03-10" ]
+      },
+      "PortfolioDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PriceEntryDto" : {
+        "type" : "object",
+        "properties" : {
+          "date" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "closePrice" : {
+            "type" : "number",
+            "format" : "float"
+          }
+        }
+      },
+      "RegisterForm" : {
+        "type" : "object",
+        "properties" : {
+          "username" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "SequencedCollectionHoldingDto" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/HoldingDto"
+        }
+      },
+      "Ticker" : {
+        "type" : "object",
+        "properties" : {
+          "isin" : {
+            "type" : "string"
+          },
+          "symbol" : {
+            "type" : "string"
+          },
+          "securityType" : {
+            "type" : "string"
+          },
+          "companyName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TickerDto" : {
+        "type" : "object",
+        "properties" : {
+          "symbol" : {
+            "type" : "string"
+          },
+          "companyName" : {
+            "type" : "string"
+          },
+          "securityType" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TransactionsDto" : {
+        "type" : "object",
+        "properties" : {
+          "date" : {
+            "$ref" : "#/components/schemas/LocalDate"
+          },
+          "ticker" : {
+            "$ref" : "#/components/schemas/Ticker"
+          },
+          "quantity" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "cost" : {
+            "type" : "number"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT",
+        "description" : "Authentication"
+      }
+    }
+  },
+  "info" : {
+    "title" : "stock-echoes-server API",
+    "version" : "1.0.0-SNAPSHOT"
+  }
+}
