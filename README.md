@@ -1,11 +1,41 @@
-# stock-echoes-server
+# Stock Echoes Server
+
+## 1. How to run locally:
+
+### Development
+```shell script
+  ./mvnw quarkus:dev -DskipTests -Ddebug
+```
+
+### Build image locally
+```shell script
+./mvnw -DskipTests clean package
+```
+
+```shell script
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/stock-echoes-server-jvm .
+```
+
+```shell script
+docker run -i --rm -p 8080:8080 quarkus/stock-echoes-server-jvm
+```
+
+
+## 2. Data Model
+
 ````mermaid
 classDiagram
-    class User {
+    class Account {
         - id: Long
-        - name: String
+        - customer: Customer
         - email: String
         - birth_date: String
+    }
+    
+    class Customer {
+        - id: Long
+        - firstName: String
+        - lastName: String
     }
 
     class Portfolio {
@@ -21,15 +51,6 @@ classDiagram
         - company_name: String
     }
 
-    class Holding {
-        - id: String
-        - portfolio_id: Long
-        - symbol: String
-        - name: String
-        - quantity: int
-        - avgCost: BigDecimal
-    }
-
     class Transaction {
         - id: Long
         - portfolio_id: Long
@@ -40,47 +61,8 @@ classDiagram
 
     %% Relationships
 
-    User "1" --> "*" Portfolio
-    Portfolio "1" --> "*" Holding
+    Account "1" --> "*" Portfolio
+    Account "1" --> "1" Customer
     Portfolio "1" --> "*" Transaction
     Transaction "*" -->"1" Ticker
 ````
-
-## Extensions
-
-To add an extension, you can write the command:
-
-```shell script
-./mvnw quarkus:add-extension -Dextensions='(extension name)'
-```
-
-| Dependency                  | Purpose                                                                                    | Use Case                                                                                |
-|-----------------------------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| **`hibernate-orm-panache`** | ORM framework to map Java objects to database tables and simplify DB access.               | Used for interacting with relational databases using Java objects (CRUD operations).    |
-| **`jdbc-postgresql`**       | JDBC driver for PostgreSQL, allowing Java applications to connect to PostgreSQL databases. | Used to directly connect Java applications to PostgreSQL databases via JDBC.            |
-| **`resteasy`**              | JAX-RS implementation to build RESTful web services in Java.                               | Used for creating REST APIs and handling HTTP requests and responses.                   |
-| **`resteasy-jackson`**      | Integrates Jackson for JSON serialization/deserialization in RESTful services.             | Automatically converts Java objects to JSON and vice versa in RESTful APIs.             |
-| **`lombok`**                | Reduces the necessity of writing boilerplate code.                                         | Automatically creates getters, setters and other methods when @Data is used on Entities |
-| **`quarkus-resteasy-multipart`** | Enables receiving complex form-data in the body of requests                                |  |
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
-
-### Development
-
-Build image locally
-
-```shell script
-./mvnw -DskipTests clean package
-```
-
-```shell script
-docker build -f src/main/docker/Dockerfile.jvm -t quarkus/stock-echoes-server-jvm .
-```
-
-```shell script
-docker run -i --rm -p 8080:8080 quarkus/stock-echoes-server-jvm
-```
