@@ -30,4 +30,12 @@ public class Customer extends PanacheEntityBase {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public CustomerDto toDto(String email) {
+        var dto = new CustomerDto();
+        dto.setLastName(this.getLastName());
+        dto.setFirstName(this.getFirstName());
+        dto.setEmail(email);
+        return dto;
+    }
 }
