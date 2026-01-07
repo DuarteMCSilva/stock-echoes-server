@@ -2,6 +2,7 @@ package com.stockechoes.api.accounts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.stockechoes.api.accounts.customer.Customer;
+import com.stockechoes.api.accounts.customer.CustomerDto;
 import com.stockechoes.api.portfolio.portfolios.Portfolio;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
@@ -27,7 +28,7 @@ public class Account extends PanacheEntityBase {
 
     @OneToOne
     @JoinColumn(name="customer_id", nullable = false)
-    private Customer owner;
+    private Customer customer;
 
     private String email;
 
@@ -39,19 +40,19 @@ public class Account extends PanacheEntityBase {
     private Instant createdAt = Instant.now();
 
     public Account(Customer customer, String email) {
-        this.owner = customer;
+        this.customer = customer;
         this.email = email;
     }
 
     @Override
     public String toString() {
-        return "Account{id=" + id + ", email='" + email + ", owner= '"+ owner.toString() + "}";
+        return "Account{id=" + id + ", email='" + email + ", owner= '"+ customer.toString() + "}";
     }
 
     public AccountDto toDto() {
         var dto = new AccountDto();
-        dto.setCustomer(this.getOwner());
-        dto.setEmail(this.getEmail());
+        CustomerDto customerDto = this.getCustomer().toDto(this.getEmail());
+        dto.setCustomer(customerDto);
         dto.setPortfolios(this.getPortfolios());
         return dto;
     }

@@ -1,6 +1,6 @@
 package com.stockechoes.api.accounts;
 
-import com.stockechoes.api.accounts.customer.Customer;
+import com.stockechoes.api.accounts.customer.CustomerDto;
 import com.stockechoes.api.portfolio.portfolios.Portfolio;
 import com.stockechoes.api.portfolio.portfolios.dto.PortfolioDto;
 import lombok.Getter;
@@ -14,9 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class AccountDto {
 
-    private Customer customer;
-
-    private String email;
+    private CustomerDto customer;
 
     private List<PortfolioDto> portfolios;
 
